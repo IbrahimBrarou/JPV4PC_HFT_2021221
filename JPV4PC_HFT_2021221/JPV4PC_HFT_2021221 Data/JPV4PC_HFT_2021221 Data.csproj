@@ -5,4 +5,22 @@
     <RootNamespace>JPV4PC_HFT_2021221_Data</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Databasee.mdf" />
+    <None Remove="Databasee_log.ldf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Databasee.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Databasee_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JPV4PC_HFT_2021221 Models\JPV4PC_HFT_2021221 Models.csproj" />
+  </ItemGroup>
+
 </Project>
