@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>JPV4PC_HFT_2021221_Endpoint</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JPV4PC_HFT_2021221 Data\JPV4PC_HFT_2021221.Data.csproj" />
+    <ProjectReference Include="..\JPV4PC_HFT_2021221 Logic\JPV4PC_HFT_2021221.Logic.csproj" />
+    <ProjectReference Include="..\JPV4PC_HFT_2021221 Models\JPV4PC_HFT_2021221.Models.csproj" />
+    <ProjectReference Include="..\JPV4PC_HFT_2021221 Repository\JPV4PC_HFT_2021221.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
