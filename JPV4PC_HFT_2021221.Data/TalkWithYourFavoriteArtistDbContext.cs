@@ -33,21 +33,29 @@ namespace JPV4PC_HFT_2021221.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.SeedData();
+        }
+
+    }
+    public static class DbSeed
+    {
+        public static void SeedData(this ModelBuilder modelBuilder)
+        {
             Services service1 = new Services() { Id = 1, Name = "Video talk ", Price = 500, Rating = 8 };
             Services service2 = new Services() { Id = 2, Name = "Phone call ", Price = 250, Rating = 5 };
             Services service3 = new Services() { Id = 3, Name = "Book for an event ", Price = 5000, Rating = 10 };
-            Services service4 = new Services() { Id = 4, Name = "Video Shout-out", Price =200 , Rating = 10 };
-            Services service5 = new Services() { Id = 5, Name = "Meet your artist ", Price = 1000, Rating = 9};
-            Services service6 = new Services() { Id = 6, Name = "Audio shout-out", Price = 100, Rating = 4};
+            Services service4 = new Services() { Id = 4, Name = "Video Shout-out", Price = 200, Rating = 10 };
+            Services service5 = new Services() { Id = 5, Name = "Meet your artist ", Price = 1000, Rating = 9 };
+            Services service6 = new Services() { Id = 6, Name = "Audio shout-out", Price = 100, Rating = 4 };
 
-            Artists artist1 = new Artists() { Id = 1, Name=  "Stormy",Category="Singer",Duration=1,Price=2500};
+            Artists artist1 = new Artists() { Id = 1, Name = "Stormy", Category = "Singer", Duration = 1, Price = 2500 };
             Artists artist2 = new Artists() { Id = 2, Name = "Rachid El Wali", Category = "Actor", Duration = 2, Price = 10000 };
             Artists artist3 = new Artists() { Id = 3, Name = "Redouane", Category = "Singer", Duration = 1, Price = 20000 };
             Artists artist4 = new Artists() { Id = 4, Name = "Don big", Category = "Singer", Duration = 3, Price = 10000 };
             Artists artist5 = new Artists() { Id = 5, Name = "Ahmed Cherkaoui", Category = "Painter", Duration = 1, Price = 20000 };
             Artists artist6 = new Artists() { Id = 6, Name = "Tahar Ben Jelloun", Category = "Writer", Duration = 1, Price = 30000 };
 
-            Fans fan1 = new Fans() { Id = 1, Name = "ibrahim ", PhoneNumber = 0610203050, City = "Rabat",Email="ibrahim@gmail.com"};
+            Fans fan1 = new Fans() { Id = 1, Name = "ibrahim ", PhoneNumber = 0610203050, City = "Rabat", Email = "ibrahim@gmail.com" };
             Fans fan2 = new Fans() { Id = 2, Name = "kamal", PhoneNumber = 0610203750, City = "Casablanca", Email = "Kamal@gmail.com" };
             Fans fan3 = new Fans() { Id = 3, Name = "Rachid", PhoneNumber = 0610403050, City = "Rabat", Email = "Rachid@gmail.com" };
             Fans fan4 = new Fans() { Id = 4, Name = "Amin", PhoneNumber = 0620203050, City = "Tanger", Email = "Amin@gmail.com" };
@@ -91,8 +99,13 @@ namespace JPV4PC_HFT_2021221.Data
             ConnectorReservationsServices connection18 = new ConnectorReservationsServices() { Id = 18, ReservationId = reservation8.Id, ServiceId = service6.Id };
             ConnectorReservationsServices connection19 = new ConnectorReservationsServices() { Id = 19, ReservationId = reservation7.Id, ServiceId = service5.Id };
             ConnectorReservationsServices connection20 = new ConnectorReservationsServices() { Id = 20, ReservationId = reservation10.Id, ServiceId = service1.Id };
-
-
+            
+            modelBuilder.Entity<Fans>().HasData(fan1, fan2, fan3, fan4, fan5, fan6, fan7, fan8, fan9, fan10, fan11);
+            modelBuilder.Entity<Artists>().HasData(artist1, artist2, artist3, artist4, artist5, artist6);
+            modelBuilder.Entity<Services>().HasData(service1, service2, service3, service4, service5, service6);
+            modelBuilder.Entity<Reservations>().HasData(reservation1, reservation2, reservation3, reservation4, reservation5, reservation6, reservation7, reservation8, reservation9, reservation10, reservation11);
+            modelBuilder.Entity<ConnectorReservationsServices>().HasData(connection1, connection2, connection3, connection4, connection5, connection6, connection7, connection8, connection9, connection10, connection11, connection12, connection13, connection14, connection15, connection16, connection17, connection18, connection19, connection20);
+            
             modelBuilder.Entity<Reservations>(entity =>
             {
                 entity.HasOne(reservation => reservation.Artist)
@@ -125,12 +138,6 @@ namespace JPV4PC_HFT_2021221.Data
                       .OnDelete(DeleteBehavior.SetNull);
             });
 
-            modelBuilder.Entity<Fans>().HasData(fan1, fan2, fan3, fan4, fan5, fan6,fan7,fan8,fan9,fan10,fan11);
-            modelBuilder.Entity<Artists>().HasData(artist1,artist2,artist3,artist4,artist5,artist6);
-            modelBuilder.Entity<Services>().HasData(service1, service2, service3,service4,service5,service6);
-            modelBuilder.Entity<Reservations>().HasData(reservation1,reservation2,reservation3,reservation4,reservation5,reservation6,reservation7,reservation8,reservation9,reservation10,reservation11);
-            modelBuilder.Entity<ConnectorReservationsServices>().HasData(connection1,connection2,connection3,connection4,connection5,connection6,connection7,connection8,connection9,connection10,connection11,connection12,connection13,connection14,connection15,connection16,connection17,connection18,connection19,connection20);
         }
-
     }
 }
