@@ -15,6 +15,7 @@ namespace JPV4PC_HFT_2021221.Models
         {
             this.Reservations = new HashSet<Reservations>();
         }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
