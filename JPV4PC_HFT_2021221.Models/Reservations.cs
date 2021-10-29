@@ -13,7 +13,7 @@ namespace JPV4PC_HFT_2021221.Models
     {
         public Reservations()
         {
-            this.ConnectorReservationsServices = new HashSet<ConnectorReservationsServices>();
+            this.ConnectorReservationsServices = new HashSet<ReservationsServices>();
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -41,7 +41,7 @@ namespace JPV4PC_HFT_2021221.Models
 
 
         [NotMapped]
-        public virtual ICollection<ConnectorReservationsServices> ConnectorReservationsServices { get; }
+        public virtual ICollection<ReservationsServices> ConnectorReservationsServices { get; }
 
 
         public override string ToString()

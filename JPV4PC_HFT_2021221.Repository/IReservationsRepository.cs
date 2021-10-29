@@ -9,6 +9,6 @@ namespace JPV4PC_HFT_2021221.Repository
 {
     public interface IReservationsRepository : IRepository<Reservations>
     {
-        void UpdateDate(int id, DateTime newdate);
+        void UpdateDate(int id, DateTime newDate);
     }
 }

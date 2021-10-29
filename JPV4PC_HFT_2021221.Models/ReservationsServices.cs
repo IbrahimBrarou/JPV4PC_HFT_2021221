@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace JPV4PC_HFT_2021221.Models
 {
     [Table("ConnectorsReservationsServices")]
-    public class ConnectorReservationsServices
+    public class ReservationsServices
     {
         [Key]
         [Required]

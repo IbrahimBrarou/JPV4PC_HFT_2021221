@@ -11,6 +11,6 @@ namespace JPV4PC_HFT_2021221.Repository
         T GetOne(int id);
         IQueryable<T> GetAll();
         void Add(T entity);
-        void Update(T entity);
+        void Delete(T entity);
     }
 }

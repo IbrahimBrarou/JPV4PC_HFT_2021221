@@ -21,7 +21,7 @@ namespace JPV4PC_HFT_2021221.Data
         public virtual DbSet<Artists> Artists { get; set; }
         public virtual DbSet<Services> Services { get; set; }
         public virtual DbSet<Reservations> Reservations { get; set; }
-        public virtual DbSet<ConnectorReservationsServices> ConnectorTable { get; set; }
+        public virtual DbSet<ReservationsServices> ConnectorTable { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (optionsBuilder != null && !optionsBuilder.IsConfigured)
@@ -71,32 +71,32 @@ namespace JPV4PC_HFT_2021221.Data
             Reservations reservation10 = new Reservations() { Id = 10, FanId = fan7.Id, ArtistId = artist1.Id, DateTime = new DateTime(2021, 09, 17) };
             Reservations reservation11 = new Reservations() { Id = 11, FanId = fan9.Id, ArtistId = artist2.Id, DateTime = new DateTime(2021, 09, 18) };
 
-            ConnectorReservationsServices connection1 = new ConnectorReservationsServices() { Id = 1, ReservationId = reservation1.Id, ServiceId = service1.Id };
-            ConnectorReservationsServices connection2 = new ConnectorReservationsServices() { Id = 2, ReservationId = reservation1.Id, ServiceId = service2.Id };
-            ConnectorReservationsServices connection3 = new ConnectorReservationsServices() { Id = 3, ReservationId = reservation2.Id, ServiceId = service3.Id };
-            ConnectorReservationsServices connection4 = new ConnectorReservationsServices() { Id = 4, ReservationId = reservation2.Id, ServiceId = service4.Id };
-            ConnectorReservationsServices connection5 = new ConnectorReservationsServices() { Id = 5, ReservationId = reservation3.Id, ServiceId = service5.Id };
-            ConnectorReservationsServices connection6 = new ConnectorReservationsServices() { Id = 6, ReservationId = reservation4.Id, ServiceId = service6.Id };
-            ConnectorReservationsServices connection7 = new ConnectorReservationsServices() { Id = 7, ReservationId = reservation5.Id, ServiceId = service1.Id };
-            ConnectorReservationsServices connection8 = new ConnectorReservationsServices() { Id = 8, ReservationId = reservation5.Id, ServiceId = service2.Id };
-            ConnectorReservationsServices connection9 = new ConnectorReservationsServices() { Id = 9, ReservationId = reservation6.Id, ServiceId = service3.Id };
-            ConnectorReservationsServices connection10 = new ConnectorReservationsServices() { Id = 10, ReservationId = reservation7.Id, ServiceId = service4.Id };
-            ConnectorReservationsServices connection11 = new ConnectorReservationsServices() { Id = 11, ReservationId = reservation8.Id, ServiceId = service5.Id };
-            ConnectorReservationsServices connection12 = new ConnectorReservationsServices() { Id = 12, ReservationId = reservation9.Id, ServiceId = service6.Id };
-            ConnectorReservationsServices connection13 = new ConnectorReservationsServices() { Id = 13, ReservationId = reservation10.Id, ServiceId = service1.Id };
-            ConnectorReservationsServices connection14 = new ConnectorReservationsServices() { Id = 14, ReservationId = reservation11.Id, ServiceId = service2.Id };
-            ConnectorReservationsServices connection15 = new ConnectorReservationsServices() { Id = 15, ReservationId = reservation2.Id, ServiceId = service3.Id };
-            ConnectorReservationsServices connection16 = new ConnectorReservationsServices() { Id = 16, ReservationId = reservation4.Id, ServiceId = service4.Id };
-            ConnectorReservationsServices connection17 = new ConnectorReservationsServices() { Id = 17, ReservationId = reservation5.Id, ServiceId = service5.Id };
-            ConnectorReservationsServices connection18 = new ConnectorReservationsServices() { Id = 18, ReservationId = reservation8.Id, ServiceId = service6.Id };
-            ConnectorReservationsServices connection19 = new ConnectorReservationsServices() { Id = 19, ReservationId = reservation7.Id, ServiceId = service5.Id };
-            ConnectorReservationsServices connection20 = new ConnectorReservationsServices() { Id = 20, ReservationId = reservation10.Id, ServiceId = service1.Id };
+            ReservationsServices connection1 = new ReservationsServices() { Id = 1, ReservationId = reservation1.Id, ServiceId = service1.Id };
+            ReservationsServices connection2 = new ReservationsServices() { Id = 2, ReservationId = reservation1.Id, ServiceId = service2.Id };
+            ReservationsServices connection3 = new ReservationsServices() { Id = 3, ReservationId = reservation2.Id, ServiceId = service3.Id };
+            ReservationsServices connection4 = new ReservationsServices() { Id = 4, ReservationId = reservation2.Id, ServiceId = service4.Id };
+            ReservationsServices connection5 = new ReservationsServices() { Id = 5, ReservationId = reservation3.Id, ServiceId = service5.Id };
+            ReservationsServices connection6 = new ReservationsServices() { Id = 6, ReservationId = reservation4.Id, ServiceId = service6.Id };
+            ReservationsServices connection7 = new ReservationsServices() { Id = 7, ReservationId = reservation5.Id, ServiceId = service1.Id };
+            ReservationsServices connection8 = new ReservationsServices() { Id = 8, ReservationId = reservation5.Id, ServiceId = service2.Id };
+            ReservationsServices connection9 = new ReservationsServices() { Id = 9, ReservationId = reservation6.Id, ServiceId = service3.Id };
+            ReservationsServices connection10 = new ReservationsServices() { Id = 10, ReservationId = reservation7.Id, ServiceId = service4.Id };
+            ReservationsServices connection11 = new ReservationsServices() { Id = 11, ReservationId = reservation8.Id, ServiceId = service5.Id };
+            ReservationsServices connection12 = new ReservationsServices() { Id = 12, ReservationId = reservation9.Id, ServiceId = service6.Id };
+            ReservationsServices connection13 = new ReservationsServices() { Id = 13, ReservationId = reservation10.Id, ServiceId = service1.Id };
+            ReservationsServices connection14 = new ReservationsServices() { Id = 14, ReservationId = reservation11.Id, ServiceId = service2.Id };
+            ReservationsServices connection15 = new ReservationsServices() { Id = 15, ReservationId = reservation2.Id, ServiceId = service3.Id };
+            ReservationsServices connection16 = new ReservationsServices() { Id = 16, ReservationId = reservation4.Id, ServiceId = service4.Id };
+            ReservationsServices connection17 = new ReservationsServices() { Id = 17, ReservationId = reservation5.Id, ServiceId = service5.Id };
+            ReservationsServices connection18 = new ReservationsServices() { Id = 18, ReservationId = reservation8.Id, ServiceId = service6.Id };
+            ReservationsServices connection19 = new ReservationsServices() { Id = 19, ReservationId = reservation7.Id, ServiceId = service5.Id };
+            ReservationsServices connection20 = new ReservationsServices() { Id = 20, ReservationId = reservation10.Id, ServiceId = service1.Id };
 
             modelBuilder.Entity<Fans>().HasData(fan1, fan2, fan3, fan4, fan5, fan6, fan7, fan8, fan9, fan10, fan11);
             modelBuilder.Entity<Artists>().HasData(artist1, artist2, artist3, artist4, artist5, artist6);
             modelBuilder.Entity<Services>().HasData(service1, service2, service3, service4, service5, service6);
             modelBuilder.Entity<Reservations>().HasData(reservation1, reservation2, reservation3, reservation4, reservation5, reservation6, reservation7, reservation8, reservation9, reservation10, reservation11);
-            modelBuilder.Entity<ConnectorReservationsServices>().HasData(connection1, connection2, connection3, connection4, connection5, connection6, connection7, connection8, connection9, connection10, connection11, connection12, connection13, connection14, connection15, connection16, connection17, connection18, connection19, connection20);
+            modelBuilder.Entity<ReservationsServices>().HasData(connection1, connection2, connection3, connection4, connection5, connection6, connection7, connection8, connection9, connection10, connection11, connection12, connection13, connection14, connection15, connection16, connection17, connection18, connection19, connection20);
 
             modelBuilder.Entity<Reservations>(entity =>
             {
@@ -114,7 +114,7 @@ namespace JPV4PC_HFT_2021221.Data
                       .OnDelete(DeleteBehavior.SetNull);
             });
 
-            modelBuilder.Entity<ConnectorReservationsServices>(entity =>
+            modelBuilder.Entity<ReservationsServices>(entity =>
             {
                 entity.HasOne(connection => connection.Reservations)
                       .WithMany(reservation => reservation.ConnectorReservationsServices)
@@ -122,7 +122,7 @@ namespace JPV4PC_HFT_2021221.Data
                       .OnDelete(DeleteBehavior.SetNull);
             });
 
-            modelBuilder.Entity<ConnectorReservationsServices>(entity =>
+            modelBuilder.Entity<ReservationsServices>(entity =>
             {
                 entity.HasOne(connection => connection.Services)
                       .WithMany(service => service.ConnectorReservationsServices)

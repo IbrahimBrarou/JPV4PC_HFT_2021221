@@ -7,10 +7,8 @@ using JPV4PC_HFT_2021221.Models;
 
 namespace JPV4PC_HFT_2021221.Repository
 {
-    public interface IArtistsRepository : IRepository<Artists>
+    public interface IReservationsServicesRepository :IRepository<ReservationsServices>
     {
-        void UpdatePrice(int id, int newprice);
-        void UpdateDuration(int id, int newduration);
 
     }
 }
