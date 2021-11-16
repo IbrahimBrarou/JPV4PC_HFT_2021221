@@ -10,71 +10,71 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public class FanLogic : IFanLogic
     {
-        private IReservationsRepository ReservationsRepository;
-        private IFansRepository FansRepository;
-        private IReservationsServicesRepository ReservationsServicesConnectionRepository;
+        private readonly IReservationsRepository _ReservationsRepository;
+        private readonly IFansRepository _FansRepository;
+        private readonly IReservationsServicesRepository _ReservationsServicesConnectionRepository;
         public FanLogic(IReservationsRepository reservationsRepo, IFansRepository fansRepo, IReservationsServicesRepository reservationsServicesConnectionRepo)
         {
-            ReservationsRepository = reservationsRepo;
-            FansRepository = fansRepo;
-            ReservationsServicesConnectionRepository = reservationsServicesConnectionRepo;
+            _ReservationsRepository = reservationsRepo;
+            _FansRepository = fansRepo;
+            _ReservationsServicesConnectionRepository = reservationsServicesConnectionRepo;
         }
         public void UpdateCity(int id, string newCity)
         {
-            this.FansRepository.UpdateCity(id,newCity);
+            this._FansRepository.UpdateCity(id,newCity);
         }
         public void UpdateEmail(int id, string newEmail)
         {
-            this.FansRepository.UpdateEmail(id, newEmail);
+            this._FansRepository.UpdateEmail(id, newEmail);
         }
         public void UpdatePhone(int id, int NewPhoneNumber)
         {
-            this.FansRepository.UpdatePhone(id, NewPhoneNumber);
+            this._FansRepository.UpdatePhone(id, NewPhoneNumber);
         }
         public void UpdateOrderDate(int id, DateTime newDate)
         {
-            this.ReservationsRepository.UpdateDate(id, newDate);
+            this._ReservationsRepository.UpdateDate(id, newDate);
         }
         public Fans AddNewFan(string city, string email, string name ,int phoneNumber)
         {
             Fans NewFan = new Fans() { City = city, Email = email, Name = name, PhoneNumber=phoneNumber};
-            this.FansRepository.Add(NewFan);
+            this._FansRepository.Add(NewFan);
             return NewFan;
         }
         public void DeleteFan(int id)
         {
-            Fans FanToDelete = this.FansRepository.GetOne(id);
+            Fans FanToDelete = this._FansRepository.GetOne(id);
             if (FanToDelete!=null)
             {
-                this.FansRepository.Delete(FanToDelete);
+                this._FansRepository.Delete(FanToDelete);
             }
         }
         public Reservations AddNewReservation(int fanId, int artistId, DateTime dateTime)
         {
             Reservations ReservationToAdd = new Reservations(){FanId = fanId,ArtistId = artistId,DateTime = dateTime};
-            this.ReservationsRepository.Add(ReservationToAdd);
+            this._ReservationsRepository.Add(ReservationToAdd);
             return ReservationToAdd;
         }
         public void DeleteReservation(int id)
         {
-            Reservations ReservationToDelete = this.ReservationsRepository.GetOne(id);
+            Reservations ReservationToDelete = this._ReservationsRepository.GetOne(id);
             if (ReservationToDelete!=null)
             {
-                this.ReservationsRepository.Delete(ReservationToDelete);
+                this._ReservationsRepository.Delete(ReservationToDelete);
             }
         }
         public ReservationsServices AddNewConnection(int reservationId,int serviceId)
         {
             ReservationsServices ConnectionToAdd = new ReservationsServices() { ReservationId = reservationId, ServiceId = serviceId };
-            this.ReservationsServicesConnectionRepository.Add(ConnectionToAdd);
+            this._ReservationsServicesConnectionRepository.Add(ConnectionToAdd);
             return ConnectionToAdd;
         }
         public void DeleteConnection(int id)
         {
-            ReservationsServices ConnectionToDelete = this.ReservationsServicesConnectionRepository.GetOne(id);
+            ReservationsServices ConnectionToDelete = this._ReservationsServicesConnectionRepository.GetOne(id);
             if (ConnectionToDelete!=null)
             {
-                this.ReservationsServicesConnectionRepository.Delete(ConnectionToDelete);
+                this._ReservationsServicesConnectionRepository.Delete(ConnectionToDelete);
             }
         }
 
