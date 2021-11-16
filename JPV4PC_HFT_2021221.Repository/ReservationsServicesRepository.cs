@@ -17,5 +17,7 @@ namespace JPV4PC_HFT_2021221.Repository
                 .ConnectorTable
                 .SingleOrDefault(connection => connection.Id == id);
         }
+        
+
     }
 }
