@@ -147,7 +147,18 @@ namespace JPV4PC_HFT_2021221.Logic
 
         public IEnumerable<ArtistEarnings> ArtistEarnings()
         {
-            throw new NotImplementedException();
+            var TotalEarning = from artists in this._ArtistRepository.GetAll()
+                               join reservations in this._ReservationsRepository.GetAll()
+                               on artists.Id equals reservations.ArtistId
+                               group reservations by reservations.ArtistId.Value into gr
+                               select new ArtistEarnings()
+                               {
+                                   ArtistId = gr.Key,
+                                   ArtistName = this._ArtistRepository.GetOne(gr.Key).Name,
+                                   FinishedJobs = gr.Count(),
+                                   OverallEarnings = (gr.Count()) * this._ArtistRepository.GetOne(gr.Key).Price,
+                               };
+            return TotalEarning;
         }
         public IEnumerable<FanTotalSpending> BestFan()
         {
