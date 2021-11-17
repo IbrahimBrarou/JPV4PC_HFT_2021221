@@ -170,7 +170,8 @@ namespace JPV4PC_HFT_2021221.Logic
         }
         public IEnumerable<ArtistEarnings> MostPaidArtist()
         {
-            throw new NotImplementedException();
+            var Mostpaidartist = ArtistEarnings().OrderBy(x => x.OverallEarnings);
+            return Mostpaidartist;
         }
 
         
