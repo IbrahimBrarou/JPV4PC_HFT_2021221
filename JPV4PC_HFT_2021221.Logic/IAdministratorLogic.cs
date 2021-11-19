@@ -21,10 +21,13 @@ namespace JPV4PC_HFT_2021221.Logic
         void UpdateArtistCost(int artistId, int cost);
         //////// non-crud ops should be added
         IEnumerable<ArtistEarnings> ArtistEarnings();
-        IEnumerable<FanTotalSpending> GetFanTotalSpendings();
-
         IEnumerable<ArtistEarnings> MostPaidArtist();
-        IEnumerable<FanTotalSpending> BestFan();
+        IEnumerable<ArtistEarnings> LessPaidArtist();
+
+        IEnumerable<FanRating> BestFan();
+        IEnumerable<FanRating> WorstFan();
+
+        
 
 
 

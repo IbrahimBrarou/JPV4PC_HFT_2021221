@@ -160,26 +160,49 @@ namespace JPV4PC_HFT_2021221.Logic
                                };
             return TotalEarning;
         }
-        public IEnumerable<FanTotalSpending> BestFan()
-        {
-            throw new NotImplementedException();
-        }
-        public IEnumerable<FanTotalSpending> GetFanTotalSpendings()
-        {
-            throw new NotImplementedException();
-        }
         public IEnumerable<ArtistEarnings> MostPaidArtist()
         {
-            var Mostpaidartist = ArtistEarnings().OrderBy(x => x.OverallEarnings);
+            var Mostpaidartist = ArtistEarnings().OrderByDescending(x => x.OverallEarnings);
             return Mostpaidartist;
         }
-
-        
-
-        
-
-        
-
-        
+        public IEnumerable<ArtistEarnings> LessPaidArtist()
+        {
+            var Lesspaidartist = ArtistEarnings().OrderBy(x => x.OverallEarnings);
+            return Lesspaidartist;
+        }
+        public IEnumerable<FanRating> BestFan()
+        {
+            //// youngest fan
+            var BestFan = from fan in this._FansRepository.GetAll()
+                          join Reservations in this._ReservationsRepository.GetAll()
+                          on fan.Id equals Reservations.FanId
+                          group Reservations by Reservations.FanId.Value into gr
+                          select new FanRating
+                          {
+                              FanID = gr.Key,
+                              FanName = this._FansRepository.GetOne(gr.Key).Name,
+                              NumberOfReservations = gr.Count()
+                          };
+            int maxNumOfReservations = BestFan.Max(x => x.NumberOfReservations);
+            var bestfann = BestFan.Where(x => x.NumberOfReservations == maxNumOfReservations);
+            return bestfann;
+        }
+        public IEnumerable<FanRating> WorstFan()
+        {
+            //// youngest fan
+            var WorstFan = from fan in this._FansRepository.GetAll()
+                           join Reservations in this._ReservationsRepository.GetAll()
+                           on fan.Id equals Reservations.FanId
+                           group Reservations by Reservations.FanId.Value into gr
+                           select new FanRating
+                           {
+                               FanID = gr.Key,
+                               FanName = this._FansRepository.GetOne(gr.Key).Name,
+                               NumberOfReservations = gr.Count()
+                           };
+            int maxNumOfReservations = WorstFan.Min(x => x.NumberOfReservations);
+            var Worstfann = WorstFan.Where(x => x.NumberOfReservations == maxNumOfReservations);
+            return Worstfann;
+        }
     }
 }
