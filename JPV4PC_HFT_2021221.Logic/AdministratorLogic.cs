@@ -23,6 +23,12 @@ namespace JPV4PC_HFT_2021221.Logic
             _ArtistRepository = artistRepository;
             _ReservationsServicesConnectionRepository = reservationsServicesConnectionRepository;
         }
+
+        public AdministratorLogic(IArtistsRepository artistRepository)
+        {
+            _ArtistRepository = artistRepository;
+        }
+
         public void UpdateArtistCost(int artistId, int cost)
         {
             this._ArtistRepository.UpdatePrice(artistId, cost);
@@ -121,7 +127,7 @@ namespace JPV4PC_HFT_2021221.Logic
             }
             else
             {
-                throw new Exception("This ID can't be found on our ArtistsDatabase.");
+                throw new ArgumentException("This ID can't be found on our ArtistsDatabase.");
             }
         }
         public Services AddNewService(string name,int price,int rating)
@@ -157,12 +163,13 @@ namespace JPV4PC_HFT_2021221.Logic
         }
         public IEnumerable<KeyValuePair<string,int>> MostPaidArtist()
         {
-            var Mostpaidartist = ArtistEarnings().OrderByDescending(x => x.Value);
+            var Mostpaidartist = ArtistEarnings().OrderByDescending(x => x.Value).Take(1);
             return Mostpaidartist;
+            
         }
         public IEnumerable<KeyValuePair<string,int>> LessPaidArtist()
         {
-            var Lesspaidartist = ArtistEarnings().OrderBy(x => x.Value);
+            var Lesspaidartist = ArtistEarnings().OrderBy(x => x.Value).Take(1);
             return Lesspaidartist;
         }
         public IEnumerable<KeyValuePair<string, int>> BestFan()

@@ -13,6 +13,10 @@ namespace JPV4PC_HFT_2021221.Logic
         private readonly IReservationsRepository _ReservationsRepository;
         private readonly IFansRepository _FansRepository;
         private readonly IReservationsServicesRepository _ReservationsServicesConnectionRepository;
+        public FanLogic(IFansRepository fansRepository)
+        {
+            _FansRepository = fansRepository;
+        }
         public FanLogic(IReservationsRepository reservationsRepo, IFansRepository fansRepo, IReservationsServicesRepository reservationsServicesConnectionRepo)
         {
             _ReservationsRepository = reservationsRepo;
@@ -37,9 +41,17 @@ namespace JPV4PC_HFT_2021221.Logic
         }
         public Fans AddNewFan(string city, string email, string name ,int phoneNumber)
         {
-            Fans NewFan = new Fans() { City = city, Email = email, Name = name, PhoneNumber=phoneNumber};
-            this._FansRepository.Add(NewFan);
-            return NewFan;
+            if (name== null)
+            {
+                throw new ArgumentException("ERROR : Please provide a Name");
+            }
+            else
+            {
+                Fans NewFan = new Fans() { City = city, Email = email, Name = name, PhoneNumber = phoneNumber };
+                this._FansRepository.Add(NewFan);
+                return NewFan;
+            }
+            
         }
         public void DeleteFan(int id)
         {
@@ -48,9 +60,14 @@ namespace JPV4PC_HFT_2021221.Logic
             {
                 this._FansRepository.Delete(FanToDelete);
             }
+            else
+            {
+                throw new ArgumentException("Error : No FAN with this Id is found.");
+            }
         }
         public Reservations AddNewReservation(int fanId, int artistId, DateTime dateTime)
         {
+
             Reservations ReservationToAdd = new Reservations(){FanId = fanId,ArtistId = artistId,DateTime = dateTime};
             this._ReservationsRepository.Add(ReservationToAdd);
             return ReservationToAdd;
