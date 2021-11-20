@@ -97,6 +97,12 @@ namespace JPV4PC_HFT_2021221.Test
 
         //Tests for crud functions
         [Test]
+        public void AddServiceTest_Throws()
+        {
+            //Arrange
+            Assert.Throws<ArgumentException>(() => AL.AddNewService(null, 100,2));
+        }
+        [Test]
         public void GetArtistTest()
         {
             

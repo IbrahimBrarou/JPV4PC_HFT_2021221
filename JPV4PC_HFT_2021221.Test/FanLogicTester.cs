@@ -28,6 +28,10 @@ namespace JPV4PC_HFT_2021221.Test
                 new Fans(){Id =5,City="Budapest5",Email="fan5@gmail.com",Name="fan5",PhoneNumber=55555555}
             }.AsQueryable();
             MockFanRepository.Setup((t) => t.GetAll()).Returns(fans);
+            for (int i = 0; i < 5; i++)
+            {
+                MockFanRepository.Setup((t) => t.GetOne(i + 1)).Returns(fans.ToList()[i]);
+            }
             FL = new FanLogic(MockFanRepository.Object);
         }
 

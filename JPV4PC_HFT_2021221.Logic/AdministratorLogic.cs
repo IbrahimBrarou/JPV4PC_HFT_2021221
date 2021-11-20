@@ -127,9 +127,17 @@ namespace JPV4PC_HFT_2021221.Logic
         }
         public Services AddNewService(string name,int price,int rating)
         {
-            Services ServiceToAdd = new Services() { Name = name, Price = price, Rating = rating };
-            this._ServicesRepository.Add(ServiceToAdd);
-            return ServiceToAdd;
+            if (name == null)
+            {
+                throw new ArgumentException("ERROR : Please provide a Name");
+            }
+            else
+            {
+                Services ServiceToAdd = new Services() { Name = name, Price = price, Rating = rating };
+                this._ServicesRepository.Add(ServiceToAdd);
+                return ServiceToAdd;
+            }
+            
         }
         public void DeleteService(int id)
         {
