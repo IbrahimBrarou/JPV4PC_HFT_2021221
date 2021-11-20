@@ -24,11 +24,6 @@ namespace JPV4PC_HFT_2021221.Logic
             _ReservationsServicesConnectionRepository = reservationsServicesConnectionRepository;
         }
 
-        public AdministratorLogic(IArtistsRepository artistRepository)
-        {
-            _ArtistRepository = artistRepository;
-        }
-
         public void UpdateArtistCost(int artistId, int cost)
         {
             this._ArtistRepository.UpdatePrice(artistId, cost);
@@ -163,7 +158,7 @@ namespace JPV4PC_HFT_2021221.Logic
         }
         public IEnumerable<KeyValuePair<string,int>> MostPaidArtist()
         {
-            var Mostpaidartist = ArtistEarnings().OrderByDescending(x => x.Value).Take(1);
+            var Mostpaidartist = ArtistEarnings().OrderByDescending(x => x.Value);
             return Mostpaidartist;
             
         }
@@ -192,8 +187,8 @@ namespace JPV4PC_HFT_2021221.Logic
                            group Reservations by Reservations.FanId.Value into gr
                            select new KeyValuePair<string, int>
                            (this._FansRepository.GetOne(gr.Key).Name,gr.Count());  
-            int maxNumOfReservations = WorstFan.Min(x => x.Value);
-            var Worstfann = WorstFan.Where(x => x.Value == maxNumOfReservations);
+            int minNumOfReservations = WorstFan.Min(x => x.Value);
+            var Worstfann = WorstFan.Where(x => x.Value == minNumOfReservations);
             return Worstfann;
         }
     }

@@ -30,6 +30,8 @@ namespace JPV4PC_HFT_2021221.Test
             MockFanRepository.Setup((t) => t.GetAll()).Returns(fans);
             FL = new FanLogic(MockFanRepository.Object);
         }
+
+        // Tests for crud-operations
         [Test]
         public void AddNewFanTest_Throws()
         {
