@@ -164,18 +164,18 @@ namespace JPV4PC_HFT_2021221.Logic
                                (this._ArtistRepository.GetOne(gr.Key).Name, (gr.Count()) * this._ArtistRepository.GetOne(gr.Key).Price);
             return TotalEarning;
         }
-        public IEnumerable<KeyValuePair<string,int>> MostPaidArtist()
+        public KeyValuePair<string,int> MostPaidArtist()
         {
-            var Mostpaidartist = ArtistEarnings().OrderByDescending(x => x.Value);
+            var Mostpaidartist = ArtistEarnings().OrderByDescending(x => x.Value).FirstOrDefault();
             return Mostpaidartist;
             
         }
-        public IEnumerable<KeyValuePair<string,int>> LessPaidArtist()
+        public KeyValuePair<string,int> LessPaidArtist()
         {
-            var Lesspaidartist = ArtistEarnings().OrderBy(x => x.Value).Take(1);
+            var Lesspaidartist = ArtistEarnings().OrderBy(x => x.Value).FirstOrDefault();
             return Lesspaidartist;
         }
-        public IEnumerable<KeyValuePair<string, int>> BestFan()
+        public KeyValuePair<string, int> BestFan()
         {
             var BestFan = from fan in this._FansRepository.GetAll()
                           join Reservations in this._ReservationsRepository.GetAll()
@@ -184,10 +184,10 @@ namespace JPV4PC_HFT_2021221.Logic
                           select new KeyValuePair<string, int>
                           (this._FansRepository.GetOne(gr.Key).Name,gr.Count());
             int maxNumOfReservations = BestFan.Max(x => x.Value);
-            var bestfann = BestFan.Where(x => x.Value == maxNumOfReservations);
+            var bestfann = BestFan.Where(x => x.Value == maxNumOfReservations).FirstOrDefault();
             return bestfann;
         }
-        public IEnumerable<KeyValuePair<string, int>> WorstFan()
+        public KeyValuePair<string, int> WorstFan()
         {
             var WorstFan = from fan in this._FansRepository.GetAll()
                            join Reservations in this._ReservationsRepository.GetAll()
@@ -196,7 +196,7 @@ namespace JPV4PC_HFT_2021221.Logic
                            select new KeyValuePair<string, int>
                            (this._FansRepository.GetOne(gr.Key).Name,gr.Count());  
             int minNumOfReservations = WorstFan.Min(x => x.Value);
-            var Worstfann = WorstFan.Where(x => x.Value == minNumOfReservations);
+            var Worstfann = WorstFan.Where(x => x.Value == minNumOfReservations).FirstOrDefault();
             return Worstfann;
         }
     }

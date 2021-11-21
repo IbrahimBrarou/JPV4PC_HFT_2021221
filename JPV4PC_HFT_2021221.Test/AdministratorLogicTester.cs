@@ -136,7 +136,7 @@ namespace JPV4PC_HFT_2021221.Test
         public void MostPaidArtistTest()
         {
             //act
-            var result = this.AL.MostPaidArtist().FirstOrDefault();
+            var result = this.AL.MostPaidArtist();
             var expected = new KeyValuePair<string, int>("artist5", 500);
             //assert
             Assert.That(result, Is.EqualTo(expected));
@@ -145,7 +145,7 @@ namespace JPV4PC_HFT_2021221.Test
         public void LessPaidArtistTest()
         {
             //act
-            var result = this.AL.LessPaidArtist().FirstOrDefault();
+            var result = this.AL.LessPaidArtist();
             var expected = new KeyValuePair<string, int>("artist1", 100);
             //assert
             Assert.That(result, Is.EqualTo(expected));
@@ -154,7 +154,7 @@ namespace JPV4PC_HFT_2021221.Test
         public void BestFan()
         {
             //act 
-            var result = this.AL.BestFan().FirstOrDefault();
+            var result = this.AL.BestFan();
             var expected = new KeyValuePair<string, int>("fan1",2);
 
             Assert.That(result, Is.EqualTo(expected));
@@ -163,7 +163,7 @@ namespace JPV4PC_HFT_2021221.Test
         public void WorstFan()
         {
             //act 
-            var result = this.AL.WorstFan().FirstOrDefault();
+            var result = this.AL.WorstFan();
             var expected = new KeyValuePair<string, int>("fan5", 1);
 
             Assert.That(result, Is.EqualTo(expected));

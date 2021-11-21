@@ -24,10 +24,10 @@ namespace JPV4PC_HFT_2021221.Logic
 
 
         IEnumerable<KeyValuePair<string,int>> ArtistEarnings();
-        IEnumerable<KeyValuePair<string,int>> MostPaidArtist();
-        IEnumerable<KeyValuePair<string, int>> LessPaidArtist();
-        IEnumerable<KeyValuePair<string, int>> BestFan();
-        IEnumerable<KeyValuePair<string, int>> WorstFan();
+        KeyValuePair<string,int> MostPaidArtist();
+        KeyValuePair<string, int> LessPaidArtist();
+        KeyValuePair<string, int> BestFan();
+        KeyValuePair<string, int> WorstFan();
 
         
 
