@@ -20,11 +20,11 @@ namespace JPV4PC_HFT_2021221.Test
         [SetUp]
         public void Init()
         {
-            var MockArtistRepository = new Mock<IArtistsRepository>(MockBehavior.Loose);
-            var MockFanRepository = new Mock<IFansRepository>(MockBehavior.Loose);
-            var MockReservationsRepository = new Mock<IReservationsRepository>(MockBehavior.Loose);
-            var MockServicesRepository = new Mock<IServicesRepository>(MockBehavior.Loose);
-            var mockConRepository = new Mock<IReservationsServicesRepository>(MockBehavior.Loose);
+            var MockArtistRepository = new Mock<IArtistsRepository>();
+            var MockFanRepository = new Mock<IFansRepository>();
+            var MockReservationsRepository = new Mock<IReservationsRepository>();
+            var MockServicesRepository = new Mock<IServicesRepository>();
+            var mockConRepository = new Mock<IReservationsServicesRepository>();
 
             var Artists = new List<Artists>()
             {
@@ -136,7 +136,7 @@ namespace JPV4PC_HFT_2021221.Test
         public void MostPaidArtistTest()
         {
             //act
-            var result = this.AL.MostPaidArtist();
+            var result = AL.MostPaidArtist();
             var expected = new KeyValuePair<string, int>("artist5", 500);
             //assert
             Assert.That(result, Is.EqualTo(expected));
@@ -145,7 +145,7 @@ namespace JPV4PC_HFT_2021221.Test
         public void LessPaidArtistTest()
         {
             //act
-            var result = this.AL.LessPaidArtist();
+            var result = AL.LessPaidArtist();
             var expected = new KeyValuePair<string, int>("artist1", 100);
             //assert
             Assert.That(result, Is.EqualTo(expected));
@@ -154,7 +154,7 @@ namespace JPV4PC_HFT_2021221.Test
         public void BestFan()
         {
             //act 
-            var result = this.AL.BestFan();
+            var result = AL.BestFan();
             var expected = new KeyValuePair<string, int>("fan1",2);
 
             Assert.That(result, Is.EqualTo(expected));
@@ -163,7 +163,7 @@ namespace JPV4PC_HFT_2021221.Test
         public void WorstFan()
         {
             //act 
-            var result = this.AL.WorstFan();
+            var result = AL.WorstFan();
             var expected = new KeyValuePair<string, int>("fan5", 1);
 
             Assert.That(result, Is.EqualTo(expected));
