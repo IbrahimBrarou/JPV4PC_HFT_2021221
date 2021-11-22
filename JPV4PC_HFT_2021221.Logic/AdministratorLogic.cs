@@ -52,6 +52,10 @@ namespace JPV4PC_HFT_2021221.Logic
         {
             return this._ArtistRepository.GetAll();
         }
+        public IEnumerable<ReservationsServices> GetAllConnections()
+        {
+            return this._ReservationsServicesConnectionRepository.GetAll();
+        }
 
 
 
@@ -104,9 +108,21 @@ namespace JPV4PC_HFT_2021221.Logic
                 throw new Exception("This ID can't be found on our ReservationsDatabase.");
             }
         }
+        public ReservationsServices GetConnection(int id)
+        {
+            ReservationsServices ReservationsServicesToReturn = this._ReservationsServicesConnectionRepository.GetOne(id);
+            if (ReservationsServicesToReturn != null)
+            {
+                return ReservationsServicesToReturn;
+            }
+            else
+            {
+                throw new Exception("This ID can't be found on our ReservationsServicesDatabase.");
+            }
+        }
 
 
-        
+
         public Artists AddNewArtist(string name, int duration, int price,string category)
         {
             Artists NewArtist = new Artists() { Name = name, Duration = duration, Price = price, Category = category };
