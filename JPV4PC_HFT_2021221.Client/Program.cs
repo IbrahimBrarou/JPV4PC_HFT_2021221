@@ -1,4 +1,8 @@
-﻿using System;
+﻿using JPV4PC_HFT_2021221.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 
 namespace Client
 {
@@ -7,7 +11,9 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+
         }
+        
     }
 }

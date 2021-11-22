@@ -12,16 +12,10 @@ namespace JPV4PC_HFT_2021221.Logic
     {
         private readonly IReservationsRepository _ReservationsRepository;
         private readonly IFansRepository _FansRepository;
-        private readonly IReservationsServicesRepository _ReservationsServicesConnectionRepository;
-        public FanLogic(IFansRepository fansRepository)
-        {
-            _FansRepository = fansRepository;
-        }
-        public FanLogic(IReservationsRepository reservationsRepo, IFansRepository fansRepo, IReservationsServicesRepository reservationsServicesConnectionRepo)
+        public FanLogic(IReservationsRepository reservationsRepo, IFansRepository fansRepo)
         {
             _ReservationsRepository = reservationsRepo;
             _FansRepository = fansRepo;
-            _ReservationsServicesConnectionRepository = reservationsServicesConnectionRepo;
         }
         public void UpdateCity(int id, string newCity)
         {
@@ -34,10 +28,6 @@ namespace JPV4PC_HFT_2021221.Logic
         public void UpdatePhone(int id, int NewPhoneNumber)
         {
             this._FansRepository.UpdatePhone(id, NewPhoneNumber);
-        }
-        public void UpdateOrderDate(int id, DateTime newDate)
-        {
-            this._ReservationsRepository.UpdateDate(id, newDate);
         }
         public Fans AddNewFan(string city, string email, string name ,int phoneNumber)
         {
@@ -65,34 +55,46 @@ namespace JPV4PC_HFT_2021221.Logic
                 throw new ArgumentException("Error : No FAN with this Id is found.");
             }
         }
-        public Reservations AddNewReservation(int fanId, int artistId, DateTime dateTime)
+        public IEnumerable<Fans> GetAllFans()
         {
-
-            Reservations ReservationToAdd = new Reservations(){FanId = fanId,ArtistId = artistId,DateTime = dateTime};
-            this._ReservationsRepository.Add(ReservationToAdd);
-            return ReservationToAdd;
+            return this._FansRepository.GetAll();
         }
-        public void DeleteReservation(int id)
+        public Fans GetFan(int id)
         {
-            Reservations ReservationToDelete = this._ReservationsRepository.GetOne(id);
-            if (ReservationToDelete!=null)
+            Fans fanToReturn = this._FansRepository.GetOne(id);
+            if (fanToReturn != null)
             {
-                this._ReservationsRepository.Delete(ReservationToDelete);
+                return fanToReturn;
+            }
+            else
+            {
+                throw new Exception("This ID can't be found on our FansDatabase.");
             }
         }
-        public ReservationsServices AddNewConnection(int reservationId,int serviceId)
+        // 2 non-crud methods
+        public KeyValuePair<string, int> BestFan()
         {
-            ReservationsServices ConnectionToAdd = new ReservationsServices() { ReservationId = reservationId, ServiceId = serviceId };
-            this._ReservationsServicesConnectionRepository.Add(ConnectionToAdd);
-            return ConnectionToAdd;
+            var BestFan = from fan in this._FansRepository.GetAll()
+                          join Reservations in this._ReservationsRepository.GetAll()
+                          on fan.Id equals Reservations.FanId
+                          group Reservations by Reservations.FanId.Value into gr
+                          select new KeyValuePair<string, int>
+                          (this._FansRepository.GetOne(gr.Key).Name, gr.Count());
+            int maxNumOfReservations = BestFan.Max(x => x.Value);
+            var bestfann = BestFan.Where(x => x.Value == maxNumOfReservations).FirstOrDefault();
+            return bestfann;
         }
-        public void DeleteConnection(int id)
+        public KeyValuePair<string, int> WorstFan()
         {
-            ReservationsServices ConnectionToDelete = this._ReservationsServicesConnectionRepository.GetOne(id);
-            if (ConnectionToDelete!=null)
-            {
-                this._ReservationsServicesConnectionRepository.Delete(ConnectionToDelete);
-            }
+            var WorstFan = from fan in this._FansRepository.GetAll()
+                           join Reservations in this._ReservationsRepository.GetAll()
+                           on fan.Id equals Reservations.FanId
+                           group Reservations by Reservations.FanId.Value into gr
+                           select new KeyValuePair<string, int>
+                           (this._FansRepository.GetOne(gr.Key).Name, gr.Count());
+            int minNumOfReservations = WorstFan.Min(x => x.Value);
+            var Worstfann = WorstFan.Where(x => x.Value == minNumOfReservations).FirstOrDefault();
+            return Worstfann;
         }
 
 
