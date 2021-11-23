@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JPV4PC_HFT_2021221.Logic
 {
-    class ReservationsServicesLogic :IReservationsServicesLogic
+    public class ReservationsServicesLogic :IReservationsServicesLogic
     {
         private readonly IReservationsServicesRepository _ReservationsServicesConnectionRepository;
 

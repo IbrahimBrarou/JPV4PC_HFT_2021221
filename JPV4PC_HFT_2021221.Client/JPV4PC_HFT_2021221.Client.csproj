@@ -7,15 +7,17 @@
 
   <ItemGroup>
     <PackageReference Include="ConsoleMenu-simple" Version="2.4.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JPV4PC_HFT_2021221.Data\JPV4PC_HFT_2021221.Data.csproj" />
     <ProjectReference Include="..\JPV4PC_HFT_2021221.Logic\JPV4PC_HFT_2021221.Logic.csproj" />
     <ProjectReference Include="..\JPV4PC_HFT_2021221.Models\JPV4PC_HFT_2021221.Models.csproj" />
-    <ProjectReference Include="..\JPV4PC_HFT_2021221.Repository\JPV4PC_HFT_2021221.Repository.csproj" />
   </ItemGroup>
 
 </Project>

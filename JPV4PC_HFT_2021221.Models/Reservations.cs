@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JPV4PC_HFT_2021221.Models
 {
-    [Table("reservations")]
+    [Table("Reservations")]
     public class Reservations
     {
         public Reservations()
@@ -46,7 +46,7 @@ namespace JPV4PC_HFT_2021221.Models
 
         public override string ToString()
         {
-            return $"\n{this.Id,3} | {this.Fan?.Name ?? "N/A",-20} {this.DateTime.Year,10}.{this.DateTime.Month}.{this.DateTime.Day} \t{this.Artist?.Name ?? "N/A",-10} {this.ConnectorReservationsServices?.Count ?? 0,10}";
+            return $"\n{this.Id,3} | { this.FanId,-20} {this.DateTime.Year,10}.{this.DateTime.Month}.{this.DateTime.Day} \t{this.ArtistId ,15}";
         }
     }
 }

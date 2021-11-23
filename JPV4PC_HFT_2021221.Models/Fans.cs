@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JPV4PC_HFT_2021221.Models
 {
-    [Table("fans")]
+    [Table("Fans")]
     public class Fans
     {
         public Fans()
@@ -41,7 +41,7 @@ namespace JPV4PC_HFT_2021221.Models
         public virtual ICollection<Reservations> Reservations { get; }
         public override string ToString()
         {
-            return $"\n{this.Id,3} | {this.Name,-20} {this.Email,-28} {this.PhoneNumber,10} {this.Reservations.Count,7} \t {this.City}";
+            return $"\n{this.Id,3} | {this.Name,-20} {this.Email,-28} {this.PhoneNumber,10}  \t {this.City}";
         }
     }
 }

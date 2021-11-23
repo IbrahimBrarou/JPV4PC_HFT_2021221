@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JPV4PC_HFT_2021221.Models
 {
-    [Table("ConnectorsReservationsServices")]
+    [Table("ConnectorTable")]
     public class ReservationsServices
     {
         [Key]
@@ -27,7 +27,7 @@ namespace JPV4PC_HFT_2021221.Models
         public virtual Services Services { get; set; }
         public override string ToString()
         {
-            return $"{this.Id,3} | {this.Reservations?.Id,5}\t {this.Services?.Name ?? "N/A",-40} {this.Services?.Price ?? 0,10} Mad";
+            return $"{this.Id,3} | {this.ReservationId,5}\t {this.ServiceId ,10}";
         }
     }
 }

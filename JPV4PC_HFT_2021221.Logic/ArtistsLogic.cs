@@ -57,6 +57,10 @@ namespace JPV4PC_HFT_2021221.Logic
                 throw new Exception("This ID can't be found on our ArtistsDatabase.");
             }
         }
+       
+        
+        
+        
         // 3 non-crud methods
         public IEnumerable<KeyValuePair<string, int>> ArtistEarnings()
         {

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace JPV4PC_HFT_2021221.Logic
 {
-    public class FanLogic : IFanLogic
+    public class FansLogic : IFansLogic
     {
         private readonly IReservationsRepository _ReservationsRepository;
         private readonly IFansRepository _FansRepository;
-        public FanLogic(IReservationsRepository reservationsRepo, IFansRepository fansRepo)
+        public FansLogic(IReservationsRepository reservationsRepo, IFansRepository fansRepo)
         {
             _ReservationsRepository = reservationsRepo;
             _FansRepository = fansRepo;
@@ -95,6 +95,20 @@ namespace JPV4PC_HFT_2021221.Logic
             int minNumOfReservations = WorstFan.Min(x => x.Value);
             var Worstfann = WorstFan.Where(x => x.Value == minNumOfReservations).FirstOrDefault();
             return Worstfann;
+        }
+        public int ReservationsNumber(int id)
+        {
+            if (GetFan(id)==null)
+            {
+                throw new Exception("This Fan id does not exist in our Database.");
+            }
+            else
+            {
+                var res = this._ReservationsRepository.GetAll().Count(x => x.FanId == id);
+                return res;
+            }
+            
+            
         }
 
 

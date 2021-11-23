@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 namespace JPV4PC_HFT_2021221.Test
 {
     [TestFixture]
-    public class FanLogicTester
+    public class FansLogicTester
     {
-        FanLogic FL;
+        FansLogic FL;
         [SetUp]
         public void Init()
         {
@@ -42,7 +42,7 @@ namespace JPV4PC_HFT_2021221.Test
             {
                 MockFanRepository.Setup((t) => t.GetOne(i + 1)).Returns(fans.ToList()[i]);
             }
-            FL = new FanLogic(MockReservationsRepository.Object, MockFanRepository.Object);
+            FL = new FansLogic(MockReservationsRepository.Object, MockFanRepository.Object);
         }
 
         // Tests for crud-operations

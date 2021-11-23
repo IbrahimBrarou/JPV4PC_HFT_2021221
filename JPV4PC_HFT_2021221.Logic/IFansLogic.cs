@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JPV4PC_HFT_2021221.Logic
 {
-    public interface IFanLogic
+    public interface IFansLogic
     {
         void UpdateCity(int id, string newCity);
         void UpdatePhone(int id, int NewPhoneNumber);
@@ -20,7 +20,8 @@ namespace JPV4PC_HFT_2021221.Logic
 
         KeyValuePair<string, int> BestFan();
         KeyValuePair<string, int> WorstFan();
-
+        int ReservationsNumber(int id)
+;
 
     }
 }
