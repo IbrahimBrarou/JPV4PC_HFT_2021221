@@ -10,7 +10,7 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public class ReservationsServicesLogic :IReservationsServicesLogic
     {
-        private readonly IReservationsServicesRepository _ReservationsServicesConnectionRepository;
+        private  IReservationsServicesRepository _ReservationsServicesConnectionRepository;
 
         public ReservationsServicesLogic(IReservationsServicesRepository reservationsServicesConnectionRepository)
         {

@@ -10,8 +10,8 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public class FansLogic : IFansLogic
     {
-        private readonly IReservationsRepository _ReservationsRepository;
-        private readonly IFansRepository _FansRepository;
+        private  IReservationsRepository _ReservationsRepository;
+        private  IFansRepository _FansRepository;
         public FansLogic(IReservationsRepository reservationsRepo, IFansRepository fansRepo)
         {
             _ReservationsRepository = reservationsRepo;

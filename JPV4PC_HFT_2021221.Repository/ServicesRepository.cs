@@ -5,17 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using JPV4PC_HFT_2021221.Models;
 using JPV4PC_HFT_2021221.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace JPV4PC_HFT_2021221.Repository
 {
     public class ServicesRepository : Repository<Services>, IServicesRepository
     {
-        public ServicesRepository(TalkWithYourFavoriteArtistDbContext DbContext) : base(DbContext) { }
+        public ServicesRepository(DbContext DbContext) : base(DbContext) { }
         public override Services GetOne(int id)
         {
-            return context
-                .Services
-                .SingleOrDefault(service => service.Id == id);
+            return this.GetAll().SingleOrDefault(service => service.Id == id);
         }
         public void UpdateName(int id, string newName)
         {

@@ -10,7 +10,7 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public class ServicesLogic: IServicesLogic
     {
-        private readonly IServicesRepository _ServicesRepository;
+        private  IServicesRepository _ServicesRepository;
 
         public ServicesLogic(IServicesRepository servicesRepository)
         {

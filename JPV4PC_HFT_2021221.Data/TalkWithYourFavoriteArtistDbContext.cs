@@ -12,11 +12,11 @@ namespace JPV4PC_HFT_2021221.Data
     {
         public TalkWithYourFavoriteArtistDbContext()
         {
+            
             this.Database.EnsureCreated();
         }
 
-        public TalkWithYourFavoriteArtistDbContext(DbContextOptions<TalkWithYourFavoriteArtistDbContext> options)
-            : base(options) { }
+        public TalkWithYourFavoriteArtistDbContext(DbContextOptions<TalkWithYourFavoriteArtistDbContext> options): base(options) { }
         public virtual DbSet<Fans> Fans { get; set; }
         public virtual DbSet<Artists> Artists { get; set; }
         public virtual DbSet<Services> Services { get; set; }
@@ -28,7 +28,7 @@ namespace JPV4PC_HFT_2021221.Data
             {
                 optionsBuilder.
                     UseLazyLoadingProxies().
-                    UseSqlServer(@"data Source=(LocalDB)\MSSQLLocalDB; AttachDbFilename=|DataDirectory|\TalkWithYourFavoriteArtistDB.mdf; Integrated Security=True; MultipleActiveResultSets=True ");
+                    UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ibrah\Desktop\Project\JPV4PC_HFT_2021221.Data\TalkWithYourFavoriteArtistDB.mdf;Integrated Security=True");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -92,11 +92,7 @@ namespace JPV4PC_HFT_2021221.Data
             ReservationsServices connection19 = new ReservationsServices() { Id = 19, ReservationId = reservation7.Id, ServiceId = service5.Id };
             ReservationsServices connection20 = new ReservationsServices() { Id = 20, ReservationId = reservation10.Id, ServiceId = service1.Id };
 
-            modelBuilder.Entity<Fans>().HasData(fan1, fan2, fan3, fan4, fan5, fan6, fan7, fan8, fan9, fan10, fan11);
-            modelBuilder.Entity<Artists>().HasData(artist1, artist2, artist3, artist4, artist5, artist6);
-            modelBuilder.Entity<Services>().HasData(service1, service2, service3, service4, service5, service6);
-            modelBuilder.Entity<Reservations>().HasData(reservation1, reservation2, reservation3, reservation4, reservation5, reservation6, reservation7, reservation8, reservation9, reservation10, reservation11);
-            modelBuilder.Entity<ReservationsServices>().HasData(connection1, connection2, connection3, connection4, connection5, connection6, connection7, connection8, connection9, connection10, connection11, connection12, connection13, connection14, connection15, connection16, connection17, connection18, connection19, connection20);
+            
 
             modelBuilder.Entity<Reservations>(entity =>
             {
@@ -129,6 +125,11 @@ namespace JPV4PC_HFT_2021221.Data
                       .HasForeignKey(connection => connection.ServiceId)
                       .OnDelete(DeleteBehavior.SetNull);
             });
+            modelBuilder.Entity<Fans>().HasData(fan1, fan2, fan3, fan4, fan5, fan6, fan7, fan8, fan9, fan10, fan11);
+            modelBuilder.Entity<Artists>().HasData(artist1, artist2, artist3, artist4, artist5, artist6);
+            modelBuilder.Entity<Services>().HasData(service1, service2, service3, service4, service5, service6);
+            modelBuilder.Entity<Reservations>().HasData(reservation1, reservation2, reservation3, reservation4, reservation5, reservation6, reservation7, reservation8, reservation9, reservation10, reservation11);
+            modelBuilder.Entity<ReservationsServices>().HasData(connection1, connection2, connection3, connection4, connection5, connection6, connection7, connection8, connection9, connection10, connection11, connection12, connection13, connection14, connection15, connection16, connection17, connection18, connection19, connection20);
         }
     }
     

@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using JPV4PC_HFT_2021221.Models;
 using JPV4PC_HFT_2021221.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace JPV4PC_HFT_2021221.Repository
 {
     public class ReservationsRepository : Repository<Reservations>, IReservationsRepository
     {
-        public ReservationsRepository(TalkWithYourFavoriteArtistDbContext DbContext) : base(DbContext){ }
+        public ReservationsRepository(DbContext DbContext) : base(DbContext){ }
         public void UpdateDate(int id, DateTime newDate)
         {
             var reservation = this.GetOne(id);
@@ -28,9 +29,8 @@ namespace JPV4PC_HFT_2021221.Repository
         }
         public override Reservations GetOne(int id)
         {
-            return context
-                .Reservations
-                .SingleOrDefault(reservation => reservation.Id == id);
+            return this.GetAll().SingleOrDefault(reservation => reservation.Id == id);
+                
         }
     }
 }

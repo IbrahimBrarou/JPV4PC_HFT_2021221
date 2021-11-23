@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using JPV4PC_HFT_2021221.Models;
 using JPV4PC_HFT_2021221.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace JPV4PC_HFT_2021221.Repository
 {
     public class ArtistsRepository : Repository<Artists>, IArtistsRepository
     {
-        public ArtistsRepository(TalkWithYourFavoriteArtistDbContext DbContext ): base(DbContext) { }
+        public ArtistsRepository(DbContext DbContext ): base(DbContext) { }
         public override Artists GetOne(int id)
         {
-            return context
-                   .Artists
-                   .SingleOrDefault(artist => artist.Id == id);
+            return this.GetAll().SingleOrDefault(artist => artist.Id == id);
+                   
         }
         public void UpdateDuration(int id, int newduration)
         {

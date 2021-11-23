@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JPV4PC_HFT_2021221.Models
 {
-    [Table("Artists")]
+    [Table("artists")]
     public class Artists
     {
         public Artists()

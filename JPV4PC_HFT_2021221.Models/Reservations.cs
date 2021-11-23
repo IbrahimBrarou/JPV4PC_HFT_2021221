@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JPV4PC_HFT_2021221.Models
 {
-    [Table("Reservations")]
+    [Table("reservations")]
     public class Reservations
     {
         public Reservations()

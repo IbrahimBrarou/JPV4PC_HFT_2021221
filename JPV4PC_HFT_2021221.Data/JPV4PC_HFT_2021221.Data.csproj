@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -31,6 +31,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JPV4PC_HFT_2021221.Models\JPV4PC_HFT_2021221.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="TalkWithYourFavoriteArtistDbContext.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 
 </Project>

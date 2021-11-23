@@ -16,9 +16,9 @@ using Microsoft.Extensions.Logging;
 namespace Client
 {
     
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
 
             TalkWithYourFavoriteArtistDbContext ctx = new TalkWithYourFavoriteArtistDbContext();
@@ -103,7 +103,7 @@ namespace Client
                 .Add(">> Reservations ", () => MenuForReservations.Show())
                 .Add(">> Services ", () => MenuForServices.Show())
                 .Add(">> ReservationsServicesConnections ", () => MenuForReservationsServices.Show())
-                .Add(">> Exit", () => Environment.Exit(0))
+                .Add(">> Exit", ConsoleMenu.Close)
                 .Configure(config =>
                 {
                     config.Selector = "--> ";
@@ -186,7 +186,7 @@ namespace Client
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"\n{"Id",3} | {"Name",-20} {"Email",-28} {"PhoneNumber",10} {"City",5}");
             Console.ResetColor();
-            fanLogic.GetAllFans().ToList<Fans>().ForEach(x => Console.WriteLine(x.ToString()));
+            fanLogic.GetAllFans().ToList().ForEach(x => Console.WriteLine(x.ToString()));
             Console.ReadLine();
         }
         private static void UpdateFanEmail(FansLogic fanLogic)

@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JPV4PC_HFT_2021221.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace JPV4PC_HFT_2021221.Repository
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly TalkWithYourFavoriteArtistDbContext context;
-        protected Repository(TalkWithYourFavoriteArtistDbContext talkwithyourfavoriteartistdbcontext)
+        protected DbContext context;
+        protected Repository(DbContext ctx)
         {
-            this.context = talkwithyourfavoriteartistdbcontext;
+            this.context = ctx;
         }
         public void Add(T entity)
         {
