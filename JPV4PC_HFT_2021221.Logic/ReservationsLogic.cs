@@ -11,7 +11,7 @@ namespace JPV4PC_HFT_2021221.Logic
     public class ReservationsLogic : IReservationsLogic
     {
 
-        private  IReservationsRepository _ReservationsRepository;
+        protected  IReservationsRepository _ReservationsRepository;
 
         public ReservationsLogic(IReservationsRepository reservationsRepository)
         {

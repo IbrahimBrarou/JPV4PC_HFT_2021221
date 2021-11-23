@@ -10,8 +10,8 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public class ArtistsLogic : IArtistsLogic
     {
-        private  IArtistsRepository _ArtistRepository;
-        private  IReservationsRepository _ReservationsRepository;
+        protected  IArtistsRepository _ArtistRepository;
+        protected  IReservationsRepository _ReservationsRepository;
 
         public ArtistsLogic(IArtistsRepository artistRepository, IReservationsRepository reservationsRepository)
         {

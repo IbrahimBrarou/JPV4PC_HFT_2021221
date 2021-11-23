@@ -42,7 +42,9 @@ namespace Client
                 .Add(">> UpdateEmail", () => UpdateFanEmail(fanLogic))
                 .Add(">> UpdatePhone", () => UpdateFanPhone(fanLogic))
                 .Add(">> DELETE", () => DeleteFan(fanLogic))
-                .Add(">> Reservations count ", () => CountResers(fanLogic))
+                .Add(">> Best Fan (non-crud)", () => BestFan(fanLogic))
+                .Add(">> Worst Fan (non-crud)", () => WorstFan(fanLogic))
+                .Add(">> Reservations count (non-crud) ", () => CountResers(fanLogic))
                 .Add(">> GO BACK TO MENU", ConsoleMenu.Close)
                 .Configure(config =>
                 {
@@ -258,6 +260,19 @@ namespace Client
                 Console.WriteLine(ex.Message);
             }
             Console.ReadLine();
+        }
+        private static void BestFan(FansLogic fanLogic)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+
+            Console.WriteLine("Best Fan Name : "+ fanLogic.BestFan().Key + ", Reservations number : "+fanLogic.BestFan().Value);
+            Console.ResetColor();
+        }
+        private static void WorstFan(FansLogic fanLogic)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Worst Fan Name : " + fanLogic.WorstFan().Key + ", Reservations number : " + fanLogic.WorstFan().Value);
+            Console.ResetColor();
         }
         #endregion
 

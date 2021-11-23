@@ -10,8 +10,8 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public class FansLogic : IFansLogic
     {
-        private  IReservationsRepository _ReservationsRepository;
-        private  IFansRepository _FansRepository;
+        protected  IReservationsRepository _ReservationsRepository;
+        protected  IFansRepository _FansRepository;
         public FansLogic(IReservationsRepository reservationsRepo, IFansRepository fansRepo)
         {
             _ReservationsRepository = reservationsRepo;
@@ -74,15 +74,16 @@ namespace JPV4PC_HFT_2021221.Logic
         // 2 non-crud methods
         public KeyValuePair<string, int> BestFan()
         {
+
+
             var BestFan = from fan in this._FansRepository.GetAll()
                           join Reservations in this._ReservationsRepository.GetAll()
                           on fan.Id equals Reservations.FanId
                           group Reservations by Reservations.FanId.Value into gr
                           select new KeyValuePair<string, int>
                           (this._FansRepository.GetOne(gr.Key).Name, gr.Count());
-            int maxNumOfReservations = BestFan.Max(x => x.Value);
-            var bestfann = BestFan.Where(x => x.Value == maxNumOfReservations).FirstOrDefault();
-            return bestfann;
+            var maxNumOfReservations = BestFan.OrderBy(x => x.Value).FirstOrDefault();
+            return maxNumOfReservations;
         }
         public KeyValuePair<string, int> WorstFan()
         {
