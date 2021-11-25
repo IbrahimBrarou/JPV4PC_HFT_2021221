@@ -4,6 +4,7 @@ using JPV4PC_HFT_2021221.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -15,12 +16,12 @@ namespace JPV4PC_HFT_2021221_Endpoint
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                                                  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
             services.AddTransient<IFansLogic, FansLogic>();
             services.AddTransient<IArtistsLogic, ArtistsLogic>();
             services.AddTransient<IReservationsLogic, ReservationsLogic>();
@@ -31,10 +32,10 @@ namespace JPV4PC_HFT_2021221_Endpoint
             services.AddTransient<IReservationsRepository, ReservationsRepository>();
             services.AddTransient<IReservationsServicesRepository, ReservationsServicesRepository>();
             services.AddTransient<IServicesRepository, ServicesRepository>();
-            services.AddTransient<TalkWithYourFavoriteArtistDbContext, TalkWithYourFavoriteArtistDbContext>();
-        }
+            services.AddTransient<DbContext, TalkWithYourFavoriteArtistDbContext>();
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
+        }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

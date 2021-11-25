@@ -15,29 +15,22 @@ using JPV4PC_HFT_2021221.Client;
 namespace Client
 {
     
-    public static class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            
+
 
             System.Threading.Thread.Sleep(8000);
 
             RestService rest = new RestService("http://localhost:37793");
 
 
-            
+
 
             var fans = rest.Get<Fans>("fans");
-            var artists = rest.Get<Artists>("artists");
-            var reservations = rest.Get<Reservations>("reservations");
-            var services = rest.Get<Services>("services");
-            var reservationservices = rest.Get<ReservationsServices>("reservationsservices");
-            
 
-            int reservationsum = rest.GetSingle<int>("Noncrudforfan/Reservationsum");
 
-            
             TalkWithYourFavoriteArtistDbContext ctx = new TalkWithYourFavoriteArtistDbContext();
             FansRepository fanrepo = new FansRepository(ctx);
             ReservationsRepository reservationrepo = new ReservationsRepository(ctx);
@@ -133,6 +126,11 @@ namespace Client
                 });
 
             menu.Show();
+            
+          
+
+
+            
 
         }
                                           
