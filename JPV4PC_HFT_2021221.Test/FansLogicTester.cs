@@ -74,7 +74,7 @@ namespace JPV4PC_HFT_2021221.Test
         {
             //act 
             var result = FL.BestFan();
-            var expected = new KeyValuePair<string, int>("fan1", 2);
+            var expected = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(1,2), new KeyValuePair<int, int>(2,2) };
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -83,7 +83,7 @@ namespace JPV4PC_HFT_2021221.Test
         {
             //act 
             var result = FL.WorstFan();
-            var expected = new KeyValuePair<string, int>("fan5", 1);
+            var expected = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(5, 1) };
 
             Assert.That(result, Is.EqualTo(expected));
 

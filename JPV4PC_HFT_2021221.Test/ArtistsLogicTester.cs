@@ -80,7 +80,7 @@ namespace JPV4PC_HFT_2021221.Test
         {
             //act
             var result = AL.MostPaidArtist();
-            var expected = new KeyValuePair<string, int>("artist5", 500);
+            var expected = new List<KeyValuePair<string, int>>() { new KeyValuePair<string, int>("artist5", 500)};
             //assert
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -89,7 +89,7 @@ namespace JPV4PC_HFT_2021221.Test
         {
             //act
             var result = AL.LessPaidArtist();
-            var expected = new KeyValuePair<string, int>("artist1", 100);
+            var expected = new List<KeyValuePair<string, int>>() { new KeyValuePair<string, int>("artist1", 100) };
             //assert
             Assert.That(result, Is.EqualTo(expected));
         }

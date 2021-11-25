@@ -57,6 +57,9 @@ namespace Client
                 .Add(">> READ All", () => ReadAllArtists(artistLogic))
                 .Add(">> UpdateCost", () => UpdateArtistcost(artistLogic))
                 .Add(">> DELETE", () => DeleteArtist(artistLogic))
+                .Add(">> Artists Earnings (non-crud)", () => Artistearrings(artistLogic))
+                .Add(">> Most Paid Artist (non-crud)", () => MostPaidArt(artistLogic))
+                .Add(">> Less Paid Artist (non-crud)", () => LessPaidArt(artistLogic))
                 .Add(">> GO BACK TO MENU", ConsoleMenu.Close)
                 .Configure(config =>
                 {
@@ -263,16 +266,23 @@ namespace Client
         }
         private static void BestFan(FansLogic fanLogic)
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
-
-            Console.WriteLine("Best Fan Name : "+ fanLogic.BestFan().Key + ", Reservations number : "+fanLogic.BestFan().Value);
-            Console.ResetColor();
+            foreach (var item in fanLogic.BestFan())
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Best Fan Id : " + item.Key + ", Reservations number : " + item.Value);
+                Console.ResetColor();
+            }
+            Console.ReadLine();
         }
         private static void WorstFan(FansLogic fanLogic)
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Worst Fan Name : " + fanLogic.WorstFan().Key + ", Reservations number : " + fanLogic.WorstFan().Value);
-            Console.ResetColor();
+            foreach (var item in fanLogic.WorstFan())
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Worst Fan Id : " + item.Key + ", Reservations number : " + item.Value);
+                Console.ResetColor();
+            }
+            Console.ReadLine();
         }
         #endregion
 
@@ -355,6 +365,36 @@ namespace Client
             catch (ArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            Console.ReadLine();
+        }
+        private static void Artistearrings(ArtistsLogic artistLogic)
+        {
+            foreach (var item in artistLogic.ArtistEarnings())
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("ARTIST NAME  : " + item.Key + ", OVERALL EARNINGS : " + item.Value);
+                Console.ResetColor();
+            }
+            Console.ReadLine();
+        }
+        private static void MostPaidArt(ArtistsLogic artistLogic)
+        {
+            foreach (var item in artistLogic.MostPaidArtist())
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("ARTIST NAME  : " + item.Key + ", OVERALL EARNINGS : " + item.Value);
+                Console.ResetColor();
+            }
+            Console.ReadLine();
+        }
+        private static void LessPaidArt(ArtistsLogic artistLogic)
+        {
+            foreach (var item in artistLogic.LessPaidArtist())
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("ARTIST NAME  : " + item.Key + ", OVERALL EARNINGS : " + item.Value);
+                Console.ResetColor();
             }
             Console.ReadLine();
         }

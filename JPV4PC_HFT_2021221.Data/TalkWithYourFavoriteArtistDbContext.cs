@@ -28,7 +28,7 @@ namespace JPV4PC_HFT_2021221.Data
             {
                 optionsBuilder.
                     UseLazyLoadingProxies().
-                    UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ibrah\Desktop\Project\JPV4PC_HFT_2021221.Data\TalkWithYourFavoriteArtistDB.mdf;Integrated Security=True");
+                    UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\TalkWithYourFavoriteArtistDB.mdf;Integrated Security=True;MultipleActiveResultSets=True");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

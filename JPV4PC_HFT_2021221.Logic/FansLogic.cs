@@ -72,7 +72,7 @@ namespace JPV4PC_HFT_2021221.Logic
             }
         }
         // 2 non-crud methods
-        public KeyValuePair<string, int> BestFan()
+        public List<KeyValuePair<int, int>> BestFan()
         {
 
 
@@ -80,22 +80,41 @@ namespace JPV4PC_HFT_2021221.Logic
                           join Reservations in this._ReservationsRepository.GetAll()
                           on fan.Id equals Reservations.FanId
                           group Reservations by Reservations.FanId.Value into gr
-                          select new KeyValuePair<string, int>
-                          (this._FansRepository.GetOne(gr.Key).Name, gr.Count());
-            var maxNumOfReservations = BestFan.OrderBy(x => x.Value).FirstOrDefault();
-            return maxNumOfReservations;
+                          select new 
+                          {
+                              id = gr.Key,
+                              c=gr.Count()
+                          };
+            int max = BestFan.AsEnumerable().Max(t=>t.c);
+            
+            int[] maxNumOfReservationss = BestFan.Where(x => x.c == max).Select(x => x.id).ToArray();
+            List<KeyValuePair<int, int>> r = new List<KeyValuePair<int, int>>();
+            for (int i = 0; i < maxNumOfReservationss.Length; i++)
+            {
+                r.Add(new KeyValuePair<int, int>(maxNumOfReservationss[i], max));
+            }
+            return r;
         }
-        public KeyValuePair<string, int> WorstFan()
+        public List<KeyValuePair<int, int>> WorstFan()
         {
             var WorstFan = from fan in this._FansRepository.GetAll()
-                           join Reservations in this._ReservationsRepository.GetAll()
-                           on fan.Id equals Reservations.FanId
-                           group Reservations by Reservations.FanId.Value into gr
-                           select new KeyValuePair<string, int>
-                           (this._FansRepository.GetOne(gr.Key).Name, gr.Count());
-            int minNumOfReservations = WorstFan.Min(x => x.Value);
-            var Worstfann = WorstFan.Where(x => x.Value == minNumOfReservations).FirstOrDefault();
-            return Worstfann;
+                          join Reservations in this._ReservationsRepository.GetAll()
+                          on fan.Id equals Reservations.FanId
+                          group Reservations by Reservations.FanId.Value into gr
+                          select new
+                          {
+                              id = gr.Key,
+                              c = gr.Count()
+                          };
+            int min = WorstFan.AsEnumerable().Min(t => t.c);
+            int[] maxNumOfReservationss = WorstFan.Where(x => x.c == min).Select(x => x.id).ToArray();
+            List<KeyValuePair<int, int>> r = new List<KeyValuePair<int, int>>();
+            for (int i = 0; i < maxNumOfReservationss.Length; i++)
+            {
+                r.Add(new KeyValuePair<int, int>(maxNumOfReservationss[i],min));
+            }
+            
+            return r;
         }
         public int ReservationsNumber(int id)
         {

@@ -16,8 +16,8 @@ namespace JPV4PC_HFT_2021221.Logic
         void UpdateArtistCost(int artistId, int cost);
 
         IEnumerable<KeyValuePair<string, int>> ArtistEarnings();
-        KeyValuePair<string, int> MostPaidArtist();
-        KeyValuePair<string, int> LessPaidArtist();
+        List<KeyValuePair<string, int>> MostPaidArtist();
+        List<KeyValuePair<string, int>> LessPaidArtist();
 
     }
 }

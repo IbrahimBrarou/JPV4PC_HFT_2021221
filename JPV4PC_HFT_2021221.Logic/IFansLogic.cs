@@ -18,8 +18,8 @@ namespace JPV4PC_HFT_2021221.Logic
         Fans GetFan(int id);
         IEnumerable<Fans> GetAllFans();
 
-        KeyValuePair<string, int> BestFan();
-        KeyValuePair<string, int> WorstFan();
+        List<KeyValuePair<int, int>> BestFan();
+        List<KeyValuePair<int, int>> WorstFan();
         int ReservationsNumber(int id)
 ;
 
