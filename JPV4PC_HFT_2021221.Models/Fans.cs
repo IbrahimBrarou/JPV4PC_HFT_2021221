@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
 
 namespace JPV4PC_HFT_2021221.Models
 {
@@ -37,9 +39,13 @@ namespace JPV4PC_HFT_2021221.Models
         [MaxLength(100)]
         [Required]
         public string Email { get; set; }
-
+        
+        
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Reservations> Reservations { get; }
+        
+        
         public override string ToString()
         {
             return $"\n{this.Id,3} | {this.Name,-20} {this.Email,-28} {this.PhoneNumber,10}  \t {this.City}";

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace JPV4PC_HFT_2021221.Models
 {
@@ -23,8 +24,9 @@ namespace JPV4PC_HFT_2021221.Models
         [Required]
         public DateTime DateTime { get; set; }
 
-
+        
         [NotMapped]
+        [JsonIgnore]
         public virtual Fans Fan { get; set; }
 
 
@@ -32,15 +34,19 @@ namespace JPV4PC_HFT_2021221.Models
         public int? FanId { get; set; }
 
 
+        
         [NotMapped]
+        [JsonIgnore]
         public virtual Artists Artist { get; set; }
 
 
         [ForeignKey(nameof(Artist))]
         public int? ArtistId { get; set; }
+        
 
-
+        
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<ReservationsServices> ConnectorReservationsServices { get; }
 
 

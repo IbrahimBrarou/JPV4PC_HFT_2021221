@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace JPV4PC_HFT_2021221.Models
 {
@@ -29,8 +30,11 @@ namespace JPV4PC_HFT_2021221.Models
 
         [Required]
         public int Price { get; set; }
-
+        
+        
+        
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<ReservationsServices> ConnectorReservationsServices { get; }
 
         public override string ToString()

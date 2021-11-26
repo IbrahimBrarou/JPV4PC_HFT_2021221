@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace JPV4PC_HFT_2021221.Models
 {
@@ -18,7 +19,6 @@ namespace JPV4PC_HFT_2021221.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        
         public int Id { get; set; }
 
 
@@ -39,11 +39,15 @@ namespace JPV4PC_HFT_2021221.Models
 
         [Required]
         public int Price { get; set; }
+
+
         public override string ToString()
         {
             return $"\n{this.Id,3} |  {this.Duration} hours {this.Price,10} MAD {this.Category,10}\t {this.Name,-1}";
         }
+        
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Reservations> Reservations { get; }
     }
 }

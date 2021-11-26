@@ -19,9 +19,9 @@ namespace JPV4PC_HFT_2021221_Endpoint
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddControllersWithViews().AddNewtonsoftJson(options =>
-                                                  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
+            ////services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            ////                                      options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+          
             services.AddTransient<IFansLogic, FansLogic>();
             services.AddTransient<IArtistsLogic, ArtistsLogic>();
             services.AddTransient<IReservationsLogic, ReservationsLogic>();

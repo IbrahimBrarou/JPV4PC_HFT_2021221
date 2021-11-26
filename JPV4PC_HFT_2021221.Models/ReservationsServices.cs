@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace JPV4PC_HFT_2021221.Models
 {
@@ -16,14 +17,23 @@ namespace JPV4PC_HFT_2021221.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+
         [ForeignKey(nameof(Reservations))]
         public int? ReservationId { get; set; }
-
+        
+        
+        [NotMapped]
+        [JsonIgnore]
         public virtual Reservations Reservations { get; set; }
+
 
         [ForeignKey(nameof(Services))]
         public int? ServiceId { get; set; }
 
+
+        
+        [NotMapped]
+        [JsonIgnore]
         public virtual Services Services { get; set; }
         public override string ToString()
         {
