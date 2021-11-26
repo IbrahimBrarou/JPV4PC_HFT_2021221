@@ -11,7 +11,7 @@ namespace JPV4PC_HFT_2021221.Repository
 {
     public class ArtistsRepository : Repository<Artists>, IArtistsRepository
     {
-        public ArtistsRepository(DbContext DbContext ): base(DbContext) { }
+        public ArtistsRepository(TalkWithYourFavoriteArtistDbContext DbContext ): base(DbContext) { }
         public override Artists GetOne(int id)
         {
             return this.GetAll().SingleOrDefault(artist => artist.Id == id);

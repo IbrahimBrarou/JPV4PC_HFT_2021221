@@ -11,7 +11,7 @@ namespace JPV4PC_HFT_2021221.Repository
 {
     public class ReservationsServicesRepository : Repository<ReservationsServices>, IReservationsServicesRepository
     {
-        public ReservationsServicesRepository(DbContext DbContext) : base(DbContext) { }
+        public ReservationsServicesRepository(TalkWithYourFavoriteArtistDbContext DbContext) : base(DbContext) { }
         public override ReservationsServices GetOne(int id)
         {
             return this.GetAll().SingleOrDefault(connection => connection.Id == id);

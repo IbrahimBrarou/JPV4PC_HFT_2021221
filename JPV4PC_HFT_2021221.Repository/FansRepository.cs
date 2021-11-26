@@ -11,7 +11,7 @@ namespace JPV4PC_HFT_2021221.Repository
 {
     public class FansRepository : Repository<Fans>, IFansRepository
     {
-        public FansRepository(DbContext DbContext) : base(DbContext){ }
+        public FansRepository(TalkWithYourFavoriteArtistDbContext DbContext) : base(DbContext){ }
         public override Fans GetOne(int id)
         {
             return this.GetAll().SingleOrDefault(fan => fan.Id == id);

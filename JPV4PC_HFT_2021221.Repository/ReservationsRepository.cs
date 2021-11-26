@@ -11,7 +11,7 @@ namespace JPV4PC_HFT_2021221.Repository
 {
     public class ReservationsRepository : Repository<Reservations>, IReservationsRepository
     {
-        public ReservationsRepository(DbContext DbContext) : base(DbContext){ }
+        public ReservationsRepository(TalkWithYourFavoriteArtistDbContext DbContext) : base(DbContext){ }
         public void UpdateDate(int id, DateTime newDate)
         {
             var reservation = this.GetOne(id);

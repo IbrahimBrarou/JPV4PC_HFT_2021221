@@ -11,7 +11,7 @@ namespace JPV4PC_HFT_2021221.Repository
 {
     public class ServicesRepository : Repository<Services>, IServicesRepository
     {
-        public ServicesRepository(DbContext DbContext) : base(DbContext) { }
+        public ServicesRepository(TalkWithYourFavoriteArtistDbContext DbContext) : base(DbContext) { }
         public override Services GetOne(int id)
         {
             return this.GetAll().SingleOrDefault(service => service.Id == id);

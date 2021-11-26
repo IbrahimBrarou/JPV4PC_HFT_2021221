@@ -32,7 +32,7 @@ namespace JPV4PC_HFT_2021221_Endpoint
             services.AddTransient<IReservationsRepository, ReservationsRepository>();
             services.AddTransient<IReservationsServicesRepository, ReservationsServicesRepository>();
             services.AddTransient<IServicesRepository, ServicesRepository>();
-            services.AddTransient<DbContext, TalkWithYourFavoriteArtistDbContext>();
+            services.AddTransient<TalkWithYourFavoriteArtistDbContext, TalkWithYourFavoriteArtistDbContext>();
 
 
         }

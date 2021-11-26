@@ -10,8 +10,8 @@ namespace JPV4PC_HFT_2021221.Repository
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        protected DbContext context;
-        protected Repository(DbContext ctx)
+        protected TalkWithYourFavoriteArtistDbContext context;
+        protected Repository(TalkWithYourFavoriteArtistDbContext ctx)
         {
             this.context = ctx;
         }
