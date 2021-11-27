@@ -76,8 +76,8 @@ namespace JPV4PC_HFT_2021221.Logic
         {
 
 
-            var BestFan = from fan in this._FansRepository.GetAll()
-                          join Reservations in this._ReservationsRepository.GetAll()
+            var BestFan = from fan in this._FansRepository.GetAll().ToList()
+                          join Reservations in this._ReservationsRepository.GetAll().ToList()
                           on fan.Id equals Reservations.FanId
                           group Reservations by Reservations.FanId.Value into gr
                           select new 
@@ -97,8 +97,8 @@ namespace JPV4PC_HFT_2021221.Logic
         }
         public List<KeyValuePair<int, int>> WorstFan()
         {
-            var WorstFan = from fan in this._FansRepository.GetAll()
-                          join Reservations in this._ReservationsRepository.GetAll()
+            var WorstFan = from fan in this._FansRepository.GetAll().ToList()
+                          join Reservations in this._ReservationsRepository.GetAll().ToList()
                           on fan.Id equals Reservations.FanId
                           group Reservations by Reservations.FanId.Value into gr
                           select new

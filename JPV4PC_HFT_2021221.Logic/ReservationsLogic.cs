@@ -12,10 +12,14 @@ namespace JPV4PC_HFT_2021221.Logic
     {
 
         protected  IReservationsRepository _ReservationsRepository;
+        protected IFansRepository _fansrepo;
+        protected IArtistsRepository _artistrepo;
 
-        public ReservationsLogic(IReservationsRepository reservationsRepository)
+        public ReservationsLogic(IReservationsRepository reservationsRepository, IFansRepository fansrepo, IArtistsRepository artistrepo)
         {
             _ReservationsRepository = reservationsRepository;
+            _fansrepo = fansrepo;
+            _artistrepo = artistrepo;
         }
 
         public void UpdateReservationDate(int id, DateTime newDate)
@@ -26,8 +30,16 @@ namespace JPV4PC_HFT_2021221.Logic
         {
 
             Reservations ReservationToAdd = new Reservations() { FanId = fanId, ArtistId = artistId, DateTime = dateTime };
-            this._ReservationsRepository.Add(ReservationToAdd);
-            return ReservationToAdd;
+            if (_fansrepo.GetOne(fanId)==null || _artistrepo.GetOne(artistId)==null )
+            {
+                throw new Exception("Invalid data");
+            }
+            else
+            {
+                this._ReservationsRepository.Add(ReservationToAdd);
+                return ReservationToAdd;
+            }
+            
         }
         public void DeleteReservation(int id)
         {

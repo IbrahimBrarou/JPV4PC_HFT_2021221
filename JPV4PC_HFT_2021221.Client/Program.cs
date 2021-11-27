@@ -19,32 +19,21 @@ namespace Client
     {
         static void Main(string[] args)
         {
-
-
             System.Threading.Thread.Sleep(8000);
-
             RestService rest = new RestService("http://localhost:37793");
-
-
-
-
             var fans = rest.Get<Fans>("fans");
 
 
-            TalkWithYourFavoriteArtistDbContext ctx = new TalkWithYourFavoriteArtistDbContext();
-            FansRepository fanrepo = new FansRepository(ctx);
-            ReservationsRepository reservationrepo = new ReservationsRepository(ctx);
-            ArtistsRepository artistrepo = new ArtistsRepository(ctx);
-            ReservationsServicesRepository reservationsServicesRepo = new ReservationsServicesRepository(ctx);
-            ServicesRepository servicesrepo = new ServicesRepository(ctx);
-            FansLogic fanLogic = new FansLogic(reservationrepo,fanrepo);
-            ArtistsLogic artistLogic = new ArtistsLogic(artistrepo,reservationrepo);
-            ReservationsServicesLogic reservationsservicesLogic = new ReservationsServicesLogic(reservationsServicesRepo);
-            ReservationsLogic reservationsLogic = new ReservationsLogic(reservationrepo);
-            ServicesLogic servicesLogic = new ServicesLogic(servicesrepo);
-           
+            using IHost host = CreateHostBuilder(args).Build();
 
-            var MenuForFans = new ConsoleMenu()
+            IFansLogic fanLogic = host.Services.GetRequiredService<IFansLogic>();
+            IArtistsLogic artistLogic = host.Services.GetRequiredService<IArtistsLogic>();
+            IReservationsLogic reservationsLogic = host.Services.GetRequiredService<IReservationsLogic>();
+            IServicesLogic servicesLogic = host.Services.GetRequiredService<IServicesLogic>();
+            IReservationsServicesLogic reservationsservicesLogic = host.Services.GetRequiredService<IReservationsServicesLogic>();
+            
+
+            var MenuForFansadmin = new ConsoleMenu()
                 .Add(">> CREATE", () => AddNewFan(fanLogic))
                 .Add(">> READ By Id", () => ReadFanById(fanLogic))
                 .Add(">> READ All", () => ReadAllFans(fanLogic))
@@ -55,6 +44,21 @@ namespace Client
                 .Add(">> Best Fan (non-crud)", () => BestFan(fanLogic))
                 .Add(">> Worst Fan (non-crud)", () => WorstFan(fanLogic))
                 .Add(">> Reservations count (non-crud) ", () => CountResers(fanLogic))
+                .Add(">> GO BACK TO MENU", ConsoleMenu.Close)
+                .Configure(config =>
+                {
+                    config.Selector = "--> ";
+                    config.SelectedItemBackgroundColor = ConsoleColor.Green;
+                });
+            var MenuForFans = new ConsoleMenu()
+                .Add(">> CREATE", () => AddNewFan(fanLogic))
+                .Add(">> Add Reservation", () => AddNewReservation(reservationsLogic))
+                .Add(">> Read all Services", () => ReadAllServices(servicesLogic))
+                .Add(">> Read all Artists", () => ReadAllArtists(artistLogic))
+                .Add(">> UpdateCity", () => UpdateFanCity(fanLogic))
+                .Add(">> UpdateEmail", () => UpdateFanEmail(fanLogic))
+                .Add(">> UpdatePhone", () => UpdateFanPhone(fanLogic))
+                .Add(">> DELETE", () => DeleteFan(fanLogic))
                 .Add(">> GO BACK TO MENU", ConsoleMenu.Close)
                 .Configure(config =>
                 {
@@ -112,8 +116,8 @@ namespace Client
                     config.SelectedItemBackgroundColor = ConsoleColor.Green;
                 });
 
-            var menu = new ConsoleMenu(args, level: 0)
-                .Add(">> Fans", () => MenuForFans.Show())
+            var menuForAdministrator = new ConsoleMenu(args, level: 0)
+                .Add(">> Fans", () => MenuForFansadmin.Show())
                 .Add(">> Artists ", () => MenuForArtists.Show())
                 .Add(">> Reservations ", () => MenuForReservations.Show())
                 .Add(">> Services ", () => MenuForServices.Show())
@@ -124,20 +128,45 @@ namespace Client
                     config.Selector = "--> ";
                     config.SelectedItemBackgroundColor = ConsoleColor.Blue;
                 });
+            var MainMenu = new ConsoleMenu(args, level: 0)
+                .Add(">> Fan", () => MenuForFans.Show())
+                .Add(">> Administrator ", () => menuForAdministrator.Show())
+                .Add(">> Exit", ConsoleMenu.Close)
+                .Configure(config =>
+                {
+                    config.Selector = "--> ";
+                    config.SelectedItemBackgroundColor = ConsoleColor.Blue;
+                });
 
-            menu.Show();
-            
-          
-
-
-            
+            MainMenu.Show();
 
         }
-                                          
-        
+        private static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\TalkWithYourFavoriteArtistDB.mdf;Integrated Security=True;MultipleActiveResultSets=True";
+
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                })
+                .ConfigureServices((_, services) =>
+                    services.AddDbContext<TalkWithYourFavoriteArtistDbContext>(options => options.UseSqlServer(connectionString))
+                            .AddTransient<IFansRepository, FansRepository>()
+                            .AddTransient<IArtistsRepository, ArtistsRepository>()
+                            .AddTransient<IReservationsRepository, ReservationsRepository>()
+                            .AddTransient<IServicesRepository, ServicesRepository>()
+                            .AddTransient<IReservationsServicesRepository, ReservationsServicesRepository>()
+                            .AddTransient<IFansLogic, FansLogic>()
+                            .AddTransient<IArtistsLogic, ArtistsLogic>()
+                            .AddTransient<IReservationsLogic, ReservationsLogic>()
+                            .AddTransient<IServicesLogic, ServicesLogic>()
+                            .AddTransient<IReservationsServicesLogic, ReservationsServicesLogic>());
+        }
+
 
         #region fansMethods
-        private static void AddNewFan(FansLogic fanLogic)
+        private static void AddNewFan(IFansLogic fanLogic)
         {
             try
             {
@@ -165,7 +194,7 @@ namespace Client
 
             Console.ReadLine();
         }
-        private static void ReadFanById(FansLogic fanLogic)
+        private static void ReadFanById(IFansLogic fanLogic)
         {
             Console.Write("\n ID of Fan :  ");
             try
@@ -182,7 +211,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void CountResers(FansLogic fanLogic)
+        private static void CountResers(IFansLogic fanLogic)
         {
             Console.Write("Fan's ID : ");
             try
@@ -200,7 +229,7 @@ namespace Client
             
             Console.ReadLine();
         }
-        private static void ReadAllFans(FansLogic fanLogic)
+        private static void ReadAllFans(IFansLogic fanLogic)
         {
             Console.WriteLine("\n   ALL Fans :  \n");
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -209,7 +238,7 @@ namespace Client
             fanLogic.GetAllFans().ToList().ForEach(x => Console.WriteLine(x.ToString()));
             Console.ReadLine();
         }
-        private static void UpdateFanEmail(FansLogic fanLogic)
+        private static void UpdateFanEmail(IFansLogic fanLogic)
         {
             Console.WriteLine("\n  Fan's ID : \n");
             try
@@ -227,7 +256,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void UpdateFanCity(FansLogic fanLogic)
+        private static void UpdateFanCity(IFansLogic fanLogic)
         {
             Console.WriteLine("\n  Fan's ID : \n");
             try
@@ -245,7 +274,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void UpdateFanPhone(FansLogic fanLogic)
+        private static void UpdateFanPhone(IFansLogic fanLogic)
         {
             Console.WriteLine("\n  Fan's ID : \n");
             try
@@ -263,7 +292,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void DeleteFan(FansLogic fanLogic)
+        private static void DeleteFan(IFansLogic fanLogic)
         {
             Console.WriteLine("\n Fan's ID :  \n");
             try
@@ -279,7 +308,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void BestFan(FansLogic fanLogic)
+        private static void BestFan(IFansLogic fanLogic)
         {
             foreach (var item in fanLogic.BestFan())
             {
@@ -289,7 +318,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void WorstFan(FansLogic fanLogic)
+        private static void WorstFan(IFansLogic fanLogic)
         {
             foreach (var item in fanLogic.WorstFan())
             {
@@ -302,7 +331,7 @@ namespace Client
         #endregion
 
         #region ArtistsMethods
-        private static void AddNewArtist(ArtistsLogic artistLogic)
+        private static void AddNewArtist(IArtistsLogic artistLogic)
         {
             Console.WriteLine("\n:: New Artist ::\n");
             Console.WriteLine("Artit's Name : ");
@@ -323,7 +352,7 @@ namespace Client
 
             Console.ReadLine();
         }
-        private static void ReadArtistById(ArtistsLogic artistLogic)
+        private static void ReadArtistById(IArtistsLogic artistLogic)
         {
             Console.WriteLine("\n ID of Artist :  \n");
             try
@@ -340,7 +369,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void ReadAllArtists(ArtistsLogic artistLogic)
+        private static void ReadAllArtists(IArtistsLogic artistLogic)
         {
             Console.WriteLine("\n   ALL Artists :  \n");
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -349,7 +378,7 @@ namespace Client
             artistLogic.GetAllArtists().ToList().ForEach(x => Console.WriteLine(x.ToString()));
             Console.ReadLine();
         }
-        private static void UpdateArtistcost(ArtistsLogic artistLogic)
+        private static void UpdateArtistcost(IArtistsLogic artistLogic)
         {
             Console.WriteLine("\n  Artist's ID : \n");
             try
@@ -367,7 +396,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void DeleteArtist(ArtistsLogic artistLogic)
+        private static void DeleteArtist(IArtistsLogic artistLogic)
         {
             Console.WriteLine("\n Artist's ID :  \n");
             try
@@ -383,7 +412,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void Artistearrings(ArtistsLogic artistLogic)
+        private static void Artistearrings(IArtistsLogic artistLogic)
         {
             foreach (var item in artistLogic.ArtistEarnings())
             {
@@ -393,7 +422,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void MostPaidArt(ArtistsLogic artistLogic)
+        private static void MostPaidArt(IArtistsLogic artistLogic)
         {
             foreach (var item in artistLogic.MostPaidArtist())
             {
@@ -403,7 +432,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void LessPaidArt(ArtistsLogic artistLogic)
+        private static void LessPaidArt(IArtistsLogic artistLogic)
         {
             foreach (var item in artistLogic.LessPaidArtist())
             {
@@ -416,7 +445,7 @@ namespace Client
         #endregion
 
         #region ReservationsMethods
-        private static void AddNewReservation(ReservationsLogic reservationsLogic)
+        private static void AddNewReservation(IReservationsLogic reservationsLogic)
         {
             Console.WriteLine("\n:: New Artist ::\n");
             
@@ -429,14 +458,19 @@ namespace Client
 
             Console.WriteLine(" Date [yyyy-MM-dd HH:mm] : ");
             DateTime dateTime = DateTime.ParseExact(Console.ReadLine(), "yyyy-MM-dd HH:mm",null);
+            try
+            {
+                Reservations reservationToAdd = reservationsLogic.AddNewReservation(fanId, artistId, dateTime);
+                Console.WriteLine("\n A Reservation with ID " + reservationToAdd.Id.ToString() + " has been added to the Database\n");
+            }
+            catch (Exception ex)
+            {
 
-            Reservations reservationToAdd = reservationsLogic.AddNewReservation(fanId, artistId,dateTime);
-
-            Console.WriteLine("\n A Reservation with ID "  + reservationToAdd.Id.ToString() + " has been added to the Database\n");
-
+                Console.WriteLine(ex.Message);
+            }
             Console.ReadLine();
         }
-        private static void ReadReservationById(ReservationsLogic reservationsLogic)
+        private static void ReadReservationById(IReservationsLogic reservationsLogic)
         {
             Console.WriteLine("\n ID of Reservation :  \n");
             try
@@ -453,7 +487,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void ReadAllReservations(ReservationsLogic reservationsLogic)
+        private static void ReadAllReservations(IReservationsLogic reservationsLogic)
         {
             Console.WriteLine("\n   ALL Reservations :  \n");
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -462,7 +496,7 @@ namespace Client
             reservationsLogic.GetAllReservations().ToList().ForEach(x => Console.WriteLine(x.ToString()));
             Console.ReadLine();
         }
-        private static void UpdateReservationdate(ReservationsLogic reservationsLogic)
+        private static void UpdateReservationdate(IReservationsLogic reservationsLogic)
         {
             Console.WriteLine("\n  Reservation's ID : \n");
             try
@@ -480,7 +514,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void DeleteReservation(ReservationsLogic reservationsLogic)
+        private static void DeleteReservation(IReservationsLogic reservationsLogic)
         {
             Console.WriteLine("Reservation's ID which will be deleted ");
 
@@ -494,7 +528,7 @@ namespace Client
         #endregion
 
         #region ServicesMethods
-        private static void AddNewService(ServicesLogic servicesLogic)
+        private static void AddNewService(IServicesLogic servicesLogic)
         {
             Console.WriteLine("\n:: New Service ::\n");
 
@@ -513,7 +547,7 @@ namespace Client
 
             Console.ReadLine();
         }
-        private static void ReadServiceById(ServicesLogic servicesLogic)
+        private static void ReadServiceById(IServicesLogic servicesLogic)
         {
             Console.WriteLine("\n ID of Service :  \n");
             try
@@ -530,7 +564,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void ReadAllServices(ServicesLogic servicesLogic)
+        private static void ReadAllServices(IServicesLogic servicesLogic)
         {
             Console.WriteLine("\n   ALL Services :  \n");
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -539,7 +573,7 @@ namespace Client
             servicesLogic.GetAllServices().ToList().ForEach(x => Console.WriteLine(x.ToString()));
             Console.ReadLine();
         }
-        private static void UpdateServicecost(ServicesLogic servicesLogic)
+        private static void UpdateServicecost(IServicesLogic servicesLogic)
         {
             Console.WriteLine("\n  Service's ID : \n");
             try
@@ -557,7 +591,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void DeleteService(ServicesLogic servicesLogic)
+        private static void DeleteService(IServicesLogic servicesLogic)
         {
             Console.WriteLine("Service's ID which will be deleted ");
             int id = int.Parse(Console.ReadLine());
@@ -570,7 +604,7 @@ namespace Client
         #endregion
 
         #region ConnectionsMethods
-        private static void AddNewConnection(ReservationsServicesLogic reservationsServicesLogic)
+        private static void AddNewConnection(IReservationsServicesLogic reservationsServicesLogic)
         {
             Console.WriteLine("\n:: New Connection ::\n");
 
@@ -586,7 +620,7 @@ namespace Client
 
             Console.ReadLine();
         }
-        private static void ReadConnectionById(ReservationsServicesLogic reservationsServicesLogic)
+        private static void ReadConnectionById(IReservationsServicesLogic reservationsServicesLogic)
         {
             Console.WriteLine("\n ID of Connection :  \n");
             try
@@ -603,7 +637,7 @@ namespace Client
             }
             Console.ReadLine();
         }
-        private static void ReadAllConnections(ReservationsServicesLogic reservationsServicesLogic)
+        private static void ReadAllConnections(IReservationsServicesLogic reservationsServicesLogic)
         {
             Console.WriteLine("\n   ALL Connections :  \n");
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -612,7 +646,7 @@ namespace Client
             reservationsServicesLogic.GetAllConnections().ToList().ForEach(x => Console.WriteLine(x.ToString()));
             Console.ReadLine();
         }
-        private static void DeleteConnection(ReservationsServicesLogic reservationsServicesLogic)
+        private static void DeleteConnection(IReservationsServicesLogic reservationsServicesLogic)
         {
             Console.WriteLine("Connection's ID which will be deleted ");
             int id = int.Parse(Console.ReadLine());
