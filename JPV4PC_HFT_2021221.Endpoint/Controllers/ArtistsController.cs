@@ -34,6 +34,20 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
             return AL.GetArtist(id);
         }
 
+        // POST /artists
+        [HttpPost]
+        public void Post([FromBody] Artists value)
+        {
+            AL.AddNewArtist(value.Name,value.Duration,value.Price,value.Category);
+        }
+
+
+        // PUT /artists
+        [HttpPut]
+        public void Put([FromBody] Artists value)
+        {
+            AL.UpdateArtistCost(value.Id,value.Price);
+        }
 
 
         // DELETE /artists/5

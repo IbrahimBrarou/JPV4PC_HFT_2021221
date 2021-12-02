@@ -22,6 +22,7 @@ namespace Client
             System.Threading.Thread.Sleep(8000);
             RestService rest = new RestService("http://localhost:37793");
             var fans = rest.Get<Fans>("fans");
+            var artists = rest.Get<Artists>("artists");
 
 
             using IHost host = CreateHostBuilder(args).Build();

@@ -34,7 +34,21 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
             return FL.GetFan(id);
         }
 
-        
+        // POST /fans
+        [HttpPost]
+        public void Post([FromBody] Fans value)
+        {
+            FL.AddNewFan(value.City, value.Email, value.Name, value.PhoneNumber);
+        }
+
+
+        // PUT /fans
+        [HttpPut]
+        public void Put([FromBody] Fans value)
+        {
+            FL.UpdateCity(value.Id, value.City);
+        }
+
 
         // DELETE /fans/5
         [HttpDelete("{id}")]
