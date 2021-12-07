@@ -10,7 +10,7 @@ namespace JPV4PC_HFT_2021221.Repository
     public interface IArtistsRepository : IRepository<Artists>
     {
         void UpdatePrice(int id, int newprice);
-        void UpdateDuration(int id, int newduration);
+        
 
     }
 }

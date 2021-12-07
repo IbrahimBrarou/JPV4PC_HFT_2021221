@@ -38,7 +38,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpPost]
         public void Post([FromBody] Artists value)
         {
-            AL.AddNewArtist(value.Name,value.Duration,value.Price,value.Category);
+            AL.AddNewArtist(value);
         }
 
 

@@ -1,6 +1,5 @@
 ﻿using JPV4PC_HFT_2021221.Logic;
 using JPV4PC_HFT_2021221.Models;
-
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -38,7 +37,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpPost]
         public void Post([FromBody] Fans value)
         {
-            FL.AddNewFan(value.City, value.Email, value.Name, value.PhoneNumber);
+            FL.AddNewFan(value);
         }
 
 

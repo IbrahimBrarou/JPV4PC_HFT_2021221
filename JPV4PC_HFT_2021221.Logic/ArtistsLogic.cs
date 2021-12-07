@@ -19,9 +19,9 @@ namespace JPV4PC_HFT_2021221.Logic
             _ReservationsRepository = reservationsRepository;
         }
 
-        public Artists AddNewArtist(string name, int duration, int price, string category)
+        public Artists AddNewArtist(Artists NewArtist)
         {
-            Artists NewArtist = new Artists() { Name = name, Duration = duration, Price = price, Category = category };
+            
             this._ArtistRepository.Add(NewArtist);
             return NewArtist;
         }

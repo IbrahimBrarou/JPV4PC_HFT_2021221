@@ -10,7 +10,6 @@ namespace JPV4PC_HFT_2021221.Repository
     public interface IFansRepository : IRepository<Fans>
     {
         void UpdateCity(int id, string newcity);
-        void UpdatePhone(int id, int NewPhoneNumber);
-        void UpdateEmail(int id, string newEmail);
+        
     }
 }

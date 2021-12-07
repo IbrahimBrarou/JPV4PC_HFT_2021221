@@ -17,29 +17,22 @@ namespace JPV4PC_HFT_2021221.Logic
             _ReservationsRepository = reservationsRepo;
             _FansRepository = fansRepo;
         }
+
         public void UpdateCity(int id, string newCity)
         {
             this._FansRepository.UpdateCity(id,newCity);
         }
-        public void UpdateEmail(int id, string newEmail)
+        public Fans AddNewFan(Fans fan)
         {
-            this._FansRepository.UpdateEmail(id, newEmail);
-        }
-        public void UpdatePhone(int id, int NewPhoneNumber)
-        {
-            this._FansRepository.UpdatePhone(id, NewPhoneNumber);
-        }
-        public Fans AddNewFan(string city, string email, string name ,int phoneNumber)
-        {
-            if (name== null)
+            if (fan.Name== null)
             {
                 throw new ArgumentException("ERROR : Please provide a Name");
             }
             else
             {
-                Fans NewFan = new Fans() { City = city, Email = email, Name = name, PhoneNumber = phoneNumber };
-                this._FansRepository.Add(NewFan);
-                return NewFan;
+                
+                this._FansRepository.Add(fan);
+                return fan;
             }
             
         }

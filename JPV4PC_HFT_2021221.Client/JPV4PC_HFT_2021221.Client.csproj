@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="ConsoleMenu-simple" Version="2.4.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JPV4PC_HFT_2021221.Logic\JPV4PC_HFT_2021221.Logic.csproj" />
     <ProjectReference Include="..\JPV4PC_HFT_2021221.Models\JPV4PC_HFT_2021221.Models.csproj" />
   </ItemGroup>
 

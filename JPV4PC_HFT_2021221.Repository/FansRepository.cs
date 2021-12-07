@@ -30,31 +30,5 @@ namespace JPV4PC_HFT_2021221.Repository
                 this.context.SaveChanges();
             }
         }
-        public void UpdateEmail(int id, string newEmail)
-        {
-            var Fan = this.GetOne(id);
-            if (Fan == null)
-            {
-                throw new Exception("This id doesn't match to any Fan in our Database");
-            }
-            else
-            {
-                Fan.Email = newEmail;
-                this.context.SaveChanges();
-            }
-        }
-        public void UpdatePhone(int id, int NewPhoneNumber)
-        {
-            var Fan = this.GetOne(id);
-            if (Fan == null)
-            {
-                throw new Exception("This id doesn't match to any Fan in our Database");
-            }
-            else
-            {
-                Fan.PhoneNumber = NewPhoneNumber;
-                this.context.SaveChanges();
-            }
-        }
     }
 }

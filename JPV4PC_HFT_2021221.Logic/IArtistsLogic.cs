@@ -9,7 +9,7 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public interface IArtistsLogic
     {
-        public Artists AddNewArtist(string name, int duration, int price, string category);
+        public Artists AddNewArtist(Artists newartist);
         public void DeleteArtist(int id);
         Artists GetArtist(int id);
         IEnumerable<Artists> GetAllArtists();

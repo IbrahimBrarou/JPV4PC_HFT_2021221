@@ -49,14 +49,17 @@ namespace JPV4PC_HFT_2021221.Test
         [Test]
         public void AddNewFanTest_Throws()
         {
+            Fans fan = new Fans() { City = "budapest6", Email = "fan6@gmail.com", Name = null, PhoneNumber = 66666666 };
             //Arrange
-            Assert.Throws<ArgumentException>(() => FL.AddNewFan("budapest6", "fan6@gmail.com", null, 66666666));
+            Assert.Throws<ArgumentException>(() => FL.AddNewFan(fan));
         }
         [Test]
         public void AddNewFanTest()
         {
+            Fans fan = new Fans() { City = "budapest6", Email = "fan6@gmail.com", Name = "fan6", PhoneNumber = 66666666 };
             //Act
-            Fans fan6= FL.AddNewFan("budapest6", "fan6@gmail.com", "fan6", 66666666);
+
+            Fans fan6= FL.AddNewFan(fan);
             //Arrange
             Assert.That(fan6.Name,Is.EqualTo("fan6"));
         }
