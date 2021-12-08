@@ -13,7 +13,7 @@ namespace JPV4PC_HFT_2021221.Logic
         public void DeleteArtist(int id);
         Artists GetArtist(int id);
         IEnumerable<Artists> GetAllArtists();
-        void UpdateArtistCost(int artistId, int cost);
+        void UpdateArtistCost(Artists value);
 
         IEnumerable<KeyValuePair<string, int>> ArtistEarnings();
         List<KeyValuePair<string, int>> MostPaidArtist();

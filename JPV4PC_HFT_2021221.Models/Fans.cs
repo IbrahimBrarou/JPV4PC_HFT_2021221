@@ -32,7 +32,7 @@ namespace JPV4PC_HFT_2021221.Models
         public string City { get; set; }
 
 
-        [MaxLength(10)]
+        
         [Required]
         public int PhoneNumber { get; set; }
 

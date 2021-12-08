@@ -9,8 +9,8 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public interface IReservationsLogic
     {
-        void UpdateReservationDate(int id, DateTime newDate);
-        public Reservations AddNewReservation(int fanId, int artistId, DateTime dateTime);
+        void UpdateReservationDate(Reservations reser);
+        public Reservations AddNewReservation(Reservations reser);
         public void DeleteReservation(int id);
         Reservations GetReservation(int id);
         IEnumerable<Reservations> GetAllReservations();

@@ -37,7 +37,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpPost]
         public void Post([FromBody] ReservationsServices value)
         {
-            RSL.AddNewConnection((int)value.ReservationId, (int)value.ServiceId);
+            RSL.AddNewConnection(value);
         }
         
 

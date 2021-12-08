@@ -19,10 +19,8 @@ namespace Client
             RestService rest = new RestService("http://localhost:37793");
             
             var MenuForFansadmin = new ConsoleMenu()
-                .Add(">> CREATE", () => AddNewFan(rest))
                 .Add(">> READ By Id", () => ReadFanById(rest))
                 .Add(">> READ All", () => ReadAllFans(rest))
-                .Add(">> UpdateCity", () => UpdateFanCity(rest))
                 .Add(">> DELETE", () => DeleteFan(rest))
                 .Add(">> Best Fan (non-crud)", () => BestFan(rest))
                 .Add(">> Worst Fan (non-crud)", () => WorstFan(rest))
@@ -128,22 +126,23 @@ namespace Client
             try
             {
                 Console.WriteLine("\n:: New Fan ::\n");
-                Console.WriteLine("Fan's Name : ");
+                Console.Write("Fan's Name : ");
                 string name = Console.ReadLine();
 
-                Console.WriteLine("Fan's City : ");
+                Console.Write("Fan's City : ");
                 string city = Console.ReadLine();
                 
-                Console.WriteLine("Fan's Email : ");
+                Console.Write("Fan's Email : ");
                 string email = Console.ReadLine();
 
-                Console.WriteLine("Fan's Phone number : ");
+                Console.Write("Fan's Phone number : ");
                 int phoneNumber = int.Parse(Console.ReadLine());
 
                 Fans fan = new Fans() { City = city, Email = email, Name = name, PhoneNumber = phoneNumber };
-                rest.Post<Fans>(fan ,"fans");
                 
-                Console.WriteLine("\n A fan with name "+ name + " has been added to the Database\n");
+                rest.Post<Fans>(fan ,"Fans");
+                
+                Console.WriteLine("\n A fan with name "+ name.ToString().ToUpper() + " has been added to the Database\n");
             }
             catch (ArgumentException ex)
             {
@@ -205,7 +204,7 @@ namespace Client
             {
                 int id = int.Parse(Console.ReadLine());
                 
-                Console.WriteLine("\n New City : ");
+                Console.Write("\n New City : ");
                 string city = Console.ReadLine();
                 Fans f1 = rest.Get<Fans>(id, "fans");
                 f1.City = city;
@@ -265,21 +264,21 @@ namespace Client
         private static void AddNewArtist(RestService rest)
         {
             Console.WriteLine("\n:: New Artist ::\n");
-            Console.WriteLine("Artit's Name : ");
+            Console.Write("Artit's Name : ");
             string name = Console.ReadLine();
 
-            Console.WriteLine("Artist's Duration : ");
+            Console.Write("Artist's Duration (hours) : ");
             int duration = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Artist's price : ");
+            Console.Write("Artist's price : ");
             int price = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Artist's category  : ");
+            Console.Write("Artist's category  : ");
             string category = Console.ReadLine();
 
             rest.Post<Artists>(new Artists() { Name = name, Duration = duration, Price = price, Category = category }, "artists");
 
-            Console.WriteLine("\n An artist with the name  " + name + " has been added to the Database\n");
+            Console.WriteLine("\n An artist with the name  " + name.ToString().ToUpper() + " has been added to the Database\n");
 
             Console.ReadLine();
         }
@@ -317,7 +316,7 @@ namespace Client
             {
                 int id = int.Parse(Console.ReadLine());
                 
-                Console.WriteLine("\n New Cost : ");
+                Console.Write("\n New Cost : ");
                 int cost = int.Parse(Console.ReadLine());
                 
                 Artists art = rest.Get<Artists>(id, "artists");
@@ -391,13 +390,13 @@ namespace Client
             Console.WriteLine("\n:: New Reservation ::\n");
             
 
-            Console.WriteLine("Fan ID  : ");
+            Console.Write("Fan ID  : ");
             int fanId = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Artist ID : : ");
+            Console.Write("Artist ID : : ");
             int artistId = int.Parse(Console.ReadLine());
 
-            Console.WriteLine(" Date [yyyy-MM-dd HH:mm] : ");
+            Console.Write(" Date [yyyy-MM-dd HH:mm] : ");
             DateTime dateTime = DateTime.ParseExact(Console.ReadLine(), "yyyy-MM-dd HH:mm",null);
             try
             {
@@ -446,7 +445,7 @@ namespace Client
             {
                 int id = int.Parse(Console.ReadLine());
                 
-                Console.WriteLine("\n New Date [yyyy - MM - dd HH: mm] :  ");
+                Console.Write("\n New Date [yyyy - MM - dd HH: mm] :  ");
                 DateTime date = DateTime.ParseExact(Console.ReadLine(), "yyyy-MM-dd HH:mm", null);
                 Reservations r1 = rest.Get<Reservations>(id, "reservations");
                 r1.DateTime = date;
@@ -479,19 +478,19 @@ namespace Client
         {
             Console.WriteLine("\n:: New Service ::\n");
 
-            Console.WriteLine("Service's name :  : ");
+            Console.Write("Service's name :  : ");
             string name = Console.ReadLine();
 
-            Console.WriteLine("Service's price  : ");
+            Console.Write("Service's price  : ");
             int price = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Service's rating : : ");
+            Console.Write("Service's rating ( {1..10} )  : ");
             int rating = int.Parse(Console.ReadLine());
 
             rest.Post<Services>(new Services() {Name=name,Price=price,Rating=rating }, "Services");
            
 
-            Console.WriteLine("\n A Service with name  " + name + " has been added to the Database\n");
+            Console.WriteLine("\n A Service with name  " + name.ToString().ToUpper() + " has been added to the Database\n");
 
             Console.ReadLine();
         }
@@ -529,7 +528,7 @@ namespace Client
             {
                 int id = int.Parse(Console.ReadLine());
                 
-                Console.WriteLine("\n New Cost :  ");
+                Console.Write("\n New Cost :  ");
                 int cost = int.Parse(Console.ReadLine());
                 Services s1 = rest.Get<Services>(id, "Services");
                 s1.Price = cost;
@@ -561,10 +560,10 @@ namespace Client
         {
             Console.WriteLine("\n:: New Connection ::\n");
 
-            Console.WriteLine("Reservation's ID  : ");
+            Console.Write("Reservation's ID  : ");
             int reservationId = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Service's ID: : ");
+            Console.Write("Service's ID: : ");
             int serviceid = int.Parse(Console.ReadLine());
 
             rest.Post<ReservationsServices>(new ReservationsServices() { ReservationId = reservationId, ServiceId = serviceid }, "Reservationsservices");

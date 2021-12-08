@@ -17,11 +17,10 @@ namespace JPV4PC_HFT_2021221.Logic
             _ReservationsServicesConnectionRepository = reservationsServicesConnectionRepository;
         }
 
-        public ReservationsServices AddNewConnection(int reservationId, int serviceId)
+        public ReservationsServices AddNewConnection(ReservationsServices reserserv)
         {
-            ReservationsServices ConnectionToAdd = new ReservationsServices() { ReservationId = reservationId, ServiceId = serviceId };
-            this._ReservationsServicesConnectionRepository.Add(ConnectionToAdd);
-            return ConnectionToAdd;
+            this._ReservationsServicesConnectionRepository.Add(reserserv);
+            return reserserv;
         }
         public void DeleteConnection(int id)
         {

@@ -17,9 +17,9 @@ namespace JPV4PC_HFT_2021221.Logic
             _ServicesRepository = servicesRepository;
         }
 
-        public void UpdateServiceCost(int serviceId, int cost)
+        public void UpdateServiceCost(Services serv)
         {
-            this._ServicesRepository.UpdatePrice(serviceId, cost);
+            this._ServicesRepository.UpdatePrice(serv.Id, serv.Price);
         }
         public IEnumerable<Services> GetAllServices()
         {
@@ -37,17 +37,17 @@ namespace JPV4PC_HFT_2021221.Logic
                 throw new Exception("This ID can't be found on our ServicesDatabase.");
             }
         }
-        public Services AddNewService(string name, int price, int rating)
+        public Services AddNewService(Services serv)
         {
-            if (name == null)
+            if (serv.Name == null)
             {
                 throw new ArgumentException("ERROR : Please provide a Name");
             }
             else
             {
-                Services ServiceToAdd = new Services() { Name = name, Price = price, Rating = rating };
-                this._ServicesRepository.Add(ServiceToAdd);
-                return ServiceToAdd;
+                
+                this._ServicesRepository.Add(serv);
+                return serv;
             }
 
         }

@@ -38,7 +38,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpPost]
         public void Post([FromBody] Reservations value)
         {
-            RL.AddNewReservation((int)value.FanId, (int)value.ArtistId, value.DateTime);
+            RL.AddNewReservation(value);
         }
 
 
@@ -46,7 +46,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpPut]
         public void Put([FromBody] Reservations value)
         {
-            RL.UpdateReservationDate(value.Id, value.DateTime);
+            RL.UpdateReservationDate(value);
         }
 
 

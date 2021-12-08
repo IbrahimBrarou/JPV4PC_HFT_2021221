@@ -18,9 +18,9 @@ namespace JPV4PC_HFT_2021221.Logic
             _FansRepository = fansRepo;
         }
 
-        public void UpdateCity(int id, string newCity)
+        public void UpdateCity(Fans fan)
         {
-            this._FansRepository.UpdateCity(id,newCity);
+            this._FansRepository.UpdateCity(fan.Id,fan.City);
         }
         public Fans AddNewFan(Fans fan)
         {
@@ -64,6 +64,8 @@ namespace JPV4PC_HFT_2021221.Logic
                 throw new Exception("This ID can't be found on our FansDatabase.");
             }
         }
+
+
         // 2 non-crud methods
         public List<KeyValuePair<int, int>> BestFan()
         {

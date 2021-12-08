@@ -37,7 +37,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpPost]
         public void Post([FromBody] Services value)
         {
-            SL.AddNewService(value.Name, value.Price, value.Rating);
+            SL.AddNewService(value);
         }
 
 
@@ -45,7 +45,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpPut]
         public void Put([FromBody] Services value)
         {
-            SL.UpdateServiceCost(value.Id, value.Price);
+            SL.UpdateServiceCost(value);
         }
 
 

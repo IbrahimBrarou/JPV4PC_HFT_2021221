@@ -9,7 +9,7 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public interface IReservationsServicesLogic
     {
-        public ReservationsServices AddNewConnection(int reservationId, int serviceId);
+        public ReservationsServices AddNewConnection(ReservationsServices reservserv);
 
         public void DeleteConnection(int id);
         public ReservationsServices GetConnection(int id);

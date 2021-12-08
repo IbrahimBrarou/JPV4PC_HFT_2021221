@@ -46,7 +46,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpPut]
         public void Put([FromBody] Artists value)
         {
-            AL.UpdateArtistCost(value.Id,value.Price);
+            AL.UpdateArtistCost(value);
         }
 
 

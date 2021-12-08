@@ -11,8 +11,8 @@ namespace JPV4PC_HFT_2021221.Logic
     {
         Services GetService(int id);
         IEnumerable<Services> GetAllServices();
-        void UpdateServiceCost(int serviceId, int cost);
-        public Services AddNewService(string name, int price, int rating);
+        void UpdateServiceCost(Services serv);
+        public Services AddNewService(Services serv);
         public void DeleteService(int id);
 
     }

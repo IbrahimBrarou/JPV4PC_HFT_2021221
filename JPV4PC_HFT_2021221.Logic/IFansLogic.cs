@@ -9,7 +9,7 @@ namespace JPV4PC_HFT_2021221.Logic
 {
     public interface IFansLogic
     {
-        void UpdateCity(int id, string newCity);
+        void UpdateCity(Fans fan);
         
         public Fans AddNewFan(Fans fan);
         public void DeleteFan(int id);

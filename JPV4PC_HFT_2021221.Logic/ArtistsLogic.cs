@@ -37,9 +37,9 @@ namespace JPV4PC_HFT_2021221.Logic
                 throw new ArgumentException("This ID can't be found on our ArtistsDatabase.");
             }
         }
-        public void UpdateArtistCost(int artistId, int cost)
+        public void UpdateArtistCost(Artists value)
         {
-            this._ArtistRepository.UpdatePrice(artistId, cost);
+            this._ArtistRepository.UpdatePrice(value.Id, value.Price);
         }
         public IEnumerable<Artists> GetAllArtists()
         {

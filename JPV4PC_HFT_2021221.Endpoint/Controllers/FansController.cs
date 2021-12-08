@@ -35,7 +35,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
 
         // POST /fans
         [HttpPost]
-        public void Post([FromBody] Fans value)
+        public void Post([FromBody]Fans value)
         {
             FL.AddNewFan(value);
         }
@@ -45,7 +45,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpPut]
         public void Put([FromBody] Fans value)
         {
-            FL.UpdateCity(value.Id, value.City);
+            FL.UpdateCity(value);
         }
 
 

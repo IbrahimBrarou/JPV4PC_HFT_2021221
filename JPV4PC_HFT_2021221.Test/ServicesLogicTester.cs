@@ -38,8 +38,9 @@ namespace JPV4PC_HFT_2021221.Test
         [Test]
         public void AddServiceTest_Throws()
         {
+            Services serv = new Services() { Name=null,Price=100,Rating=2};
             //Arrange
-            Assert.Throws<ArgumentException>(() => SL.AddNewService(null, 100, 2));
+            Assert.Throws<ArgumentException>(() => SL.AddNewService(serv));
         }
         [Test]
         public void DeleteServiceTest_Throws()
