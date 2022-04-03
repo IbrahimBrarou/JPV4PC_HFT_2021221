@@ -15,16 +15,13 @@ using System.Windows.Shapes;
 namespace JPV4PC_HFT_2021221.WpfClient
 {
     /// <summary>
-    /// Interaction logic for ArtistsWindow.xaml
+    /// Interaction logic for FansWindow.xaml
     /// </summary>
-    public partial class ArtistsWindow : Window
+    public partial class FansWindow : Window
     {
-        public ArtistsWindow()
+        public FansWindow()
         {
             InitializeComponent();
-            
         }
-
-        
     }
 }

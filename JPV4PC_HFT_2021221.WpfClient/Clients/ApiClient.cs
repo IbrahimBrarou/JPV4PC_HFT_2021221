@@ -44,6 +44,17 @@ namespace JPV4PC_HFT_2021221.WpfClient.Clients
 
             response.EnsureSuccessStatusCode();
         }
+        public async Task PostAsync<T>(T item, string endpoint)
+        {
+            var content =
+                new StringContent(JsonConvert.SerializeObject(item),
+                Encoding.UTF8,
+                "application/json");
+
+            var response = await HttpClient.PostAsync(endpoint, content);
+
+            response.EnsureSuccessStatusCode();
+        }
 
     }
 }

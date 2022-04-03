@@ -1,14 +1,14 @@
-﻿<Window x:Class="JPV4PC_HFT_2021221.WpfClient.ArtistsWindow"
+﻿<Window x:Class="JPV4PC_HFT_2021221.WpfClient.ServicesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JPV4PC_HFT_2021221.WpfClient"
-        xmlns:viewModels="clr-namespace:JPV4PC_HFT_2021221.WpfClient.ViewModels"
+        xmlns:vms="clr-namespace:JPV4PC_HFT_2021221.WpfClient.ViewModels"
         mc:Ignorable="d"
-        Title="ArtistsWindow" Height="450" Width="800">
+        Title="ServicesWindow" Height="450" Width="800">
     <Window.DataContext>
-        <viewModels:ArtistsWindowViewModel/>
+        <vms:ServicesWindowViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -16,9 +16,9 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <ListBox 
-            ItemsSource="{Binding Artists}"
-            SelectedItem="{Binding SelectedArtist}"
-            SelectedIndex="{Binding SelectedArtistIndex}"
+            ItemsSource="{Binding Services}"
+            SelectedItem="{Binding SelectedService}"
+            SelectedIndex="{Binding SelectedServiceIndex}"
             Grid.Column="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -28,28 +28,29 @@
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="1*" />
                             
+
                         </Grid.ColumnDefinitions>
 
                         
                         <Label Grid.Column="0" Content="{Binding Name}"></Label>
-                        <Label Grid.Column="1" Content="{Binding Category}"></Label>
-                        <Label Grid.Column="2" Content="{Binding Price}" ContentStringFormat=" {0} $"></Label>
-                        
+                        <Label Grid.Column="1" Content="{Binding Price}" ContentStringFormat=" {0} $"></Label>
+                        <Label Grid.Column="2" Content="{Binding Rating}"></Label>
+
+
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Column="1">
-            <Label Content="Artist name" Margin="0 10 10 0"/>
-            <TextBox Text="{Binding SelectedArtist.Name}" Margin="10"></TextBox>
-            <Label Content="Artist category" />
-            <TextBox Text="{Binding SelectedArtist.Category}" Margin="10"></TextBox>
-            <Label Content="Artist price" />
-            <TextBox Text="{Binding SelectedArtist.Price}" Margin="10"></TextBox>
-            <Button Command="{Binding AddArtistCommand}" Content="Add Artist" Margin="10" />
-            <Button Command="{Binding EditArtistCommand}" Content="Edit Artist" Margin="10" />
-            <Button Command="{Binding DeleteArtistCommand}" Content="Delete Artist" Margin="10" />
-            
+            <Label Content="Service Name" Margin="0 10 10 0"/>
+            <TextBox Text="{Binding SelectedService.Name}" Margin="10"></TextBox>
+            <Label Content="Service Price" />
+            <TextBox Text="{Binding SelectedService.Price}" Margin="10"></TextBox>
+            <Label Content="Service Rating" />
+            <TextBox Text="{Binding SelectedService.Rating}" Margin="10"></TextBox>
+            <Button Command="{Binding AddServiceCommand}" Content="Add Service" Margin="10" />
+            <Button Command="{Binding EditServiceCommand}" Content="Edit Serive" Margin="10" />
+            <Button Command="{Binding DeleteServiceCommand}" Content="Delete Service" Margin="10" />
         </StackPanel>
     </Grid>
 </Window>

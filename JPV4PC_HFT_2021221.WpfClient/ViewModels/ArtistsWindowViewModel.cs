@@ -17,6 +17,7 @@ namespace JPV4PC_HFT_2021221.WpfClient.ViewModels
         private ApiClient _apiClient = new ApiClient();
 
         public ObservableCollection<Artists> Artists { get; set; }
+
         private Artists _selectedArtist;
 
         public Artists SelectedArtist
@@ -40,9 +41,11 @@ namespace JPV4PC_HFT_2021221.WpfClient.ViewModels
         public RelayCommand AddArtistCommand { get; set; }
         public RelayCommand EditArtistCommand { get; set; }
         public RelayCommand DeleteArtistCommand { get; set; }
+        public RelayCommand ArtistsEarningCommand { get; set; }
         public ArtistsWindowViewModel()
         {
             Artists = new ObservableCollection<Artists>();
+            
 
             _apiClient
                 .GetAsync<List<Artists>>("http://localhost:37793/artists")
@@ -57,15 +60,36 @@ namespace JPV4PC_HFT_2021221.WpfClient.ViewModels
                     });
                 });
 
+           
+
             AddArtistCommand = new RelayCommand(AddArtist);
             EditArtistCommand = new RelayCommand(EditArtist);
             DeleteArtistCommand = new RelayCommand(DeleteArtist);
             
+            
         }
         private void AddArtist()
         {
+            Artists n = new Artists
+            {
+                Name = SelectedArtist.Name,
+                Price = _selectedArtist.Price,
+                Category = SelectedArtist.Category,
+                Duration = SelectedArtist.Duration
+                
+            };
 
+            _apiClient
+                .PostAsync(n, "http://localhost:37793/artists")
+                .ContinueWith((task) =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Artists.Add(n);
+                    });
+                });
         }
+        
         private void EditArtist()
         {
             _apiClient
@@ -74,8 +98,10 @@ namespace JPV4PC_HFT_2021221.WpfClient.ViewModels
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
+                        int i = SelectedArtistIndex;
+                        Artists a = SelectedArtist;
                         Artists.Remove(SelectedArtist);
-                        Artists.Insert(SelectedArtistIndex, SelectedArtist);
+                        Artists.Insert(i, a);
                     });
                 });
         }

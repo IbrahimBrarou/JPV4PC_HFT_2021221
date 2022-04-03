@@ -20,9 +20,9 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Button Command="{Binding ManageArtistsCommand}" Content="Manage Artists" Margin="50" Grid.Column="0" Grid.Row="0" />
-        <Button Content="Manage Fans" Margin="50" Grid.Column="0" Grid.Row="1" />
-        <Button Content="Manage Reservations" Margin="50" Grid.Column="1" Grid.Row="0" />
-        <Button Content="Manage Services" Margin="50" Grid.Column="1" Grid.Row="1" />
+        <Button Command="{Binding ManageFansCommand}" Content="Manage Fans" Margin="50" Grid.Column="0" Grid.Row="1" />
+        <Button Command="{Binding ManageReservationsCommand}" Content="Manage Reservations" Margin="50" Grid.Column="1" Grid.Row="0" />
+        <Button Command="{Binding ManageServicesCommand}" Content="Manage Services" Margin="50" Grid.Column="1" Grid.Row="1" />
 
     </Grid>
 </Window>

@@ -15,16 +15,13 @@ using System.Windows.Shapes;
 namespace JPV4PC_HFT_2021221.WpfClient
 {
     /// <summary>
-    /// Interaction logic for ArtistsWindow.xaml
+    /// Interaction logic for ReservationsWindow.xaml
     /// </summary>
-    public partial class ArtistsWindow : Window
+    public partial class ReservationsWindow : Window
     {
-        public ArtistsWindow()
+        public ReservationsWindow()
         {
             InitializeComponent();
-            
         }
-
-        
     }
 }
