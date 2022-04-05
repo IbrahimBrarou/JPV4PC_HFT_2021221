@@ -12,6 +12,7 @@ namespace JPV4PC_HFT_2021221.WpfClient.Clients
     {
         private static HttpClient HttpClient = new HttpClient();
 
+        
         public async Task<T> GetAsync<T>(string endpoint)
         {
             var response = await HttpClient.GetAsync(endpoint);

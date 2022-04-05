@@ -17,6 +17,8 @@ namespace JPV4PC_HFT_2021221.WpfClient.ViewModels
         private ApiClient _apiClient = new ApiClient();
 
         public ObservableCollection<Fans> Fans { get; set; }
+        public IList<KeyValuePair<int, int>> BestFan { get; set; }
+        public IList<KeyValuePair<int, int>> WorstFan { get; set; }
         private Fans _selectedFan;
 
         public Fans SelectedFan
@@ -40,9 +42,13 @@ namespace JPV4PC_HFT_2021221.WpfClient.ViewModels
         public RelayCommand AddFanCommand { get; set; }
         public RelayCommand EditFanCommand { get; set; }
         public RelayCommand DeleteFanCommand { get; set; }
+        public RelayCommand BestFanCommand { get; set; }
+        public RelayCommand WorstFanCommand { get; set; }
         public FansWindowViewModel()
         {
             Fans = new ObservableCollection<Fans>();
+            BestFan = new List<KeyValuePair<int, int>>();
+            WorstFan = new List<KeyValuePair<int, int>>();
 
             _apiClient
                 .GetAsync<List<Fans>>("http://localhost:37793/fans")
@@ -56,12 +62,40 @@ namespace JPV4PC_HFT_2021221.WpfClient.ViewModels
                         });
                     });
                 });
+            _apiClient
+               .GetAsync<List<KeyValuePair<int, int>>>("http://localhost:37793/Noncrudfan/BestFans")
+               .ContinueWith((Bestfan) =>
+               {
+                   Application.Current.Dispatcher.Invoke(() =>
+                   {
+                       Bestfan.Result.ForEach((Bestf) =>
+                       {
+                           BestFan.Add(Bestf);
+                       });
+                   });
+               });
+            _apiClient
+              .GetAsync<List<KeyValuePair<int, int>>>("http://localhost:37793/Noncrudfan/WorstFans")
+              .ContinueWith((Worstfan) =>
+              {
+                  Application.Current.Dispatcher.Invoke(() =>
+                  {
+                      Worstfan.Result.ForEach((Worstf) =>
+                      {
+                          WorstFan.Add(Worstf);
+                      });
+                  });
+              });
 
             AddFanCommand = new RelayCommand(AddFan);
             EditFanCommand = new RelayCommand(EditFan);
             DeleteFanCommand = new RelayCommand(DeleteFan);
+            BestFanCommand = new RelayCommand(BestArtistMethod);
+            WorstFanCommand = new RelayCommand(WorstArtistMethod);
 
         }
+
+        #region CRUD
         private void AddFan()
         {
             Fans n = new Fans
@@ -111,5 +145,17 @@ namespace JPV4PC_HFT_2021221.WpfClient.ViewModels
                     });
                 });
         }
+        #endregion
+
+        #region NON-CRUD
+        private void BestArtistMethod()
+        {
+            new BestFanWindow().Show();
+        }
+        private void WorstArtistMethod()
+        {
+            new WorstFanWindow().Show();
+        }
+        #endregion
     }
 }

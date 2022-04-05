@@ -1,0 +1,31 @@
+﻿<Window x:Class="JPV4PC_HFT_2021221.WpfClient.WorstFanWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JPV4PC_HFT_2021221.WpfClient"
+        xmlns:vms="clr-namespace:JPV4PC_HFT_2021221.WpfClient.ViewModels"
+        mc:Ignorable="d"
+        Title="WorstFanWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vms:FansWindowViewModel></vms:FansWindowViewModel>
+    </Window.DataContext>
+    <Grid>
+        <ListBox 
+            ItemsSource="{Binding WorstFan}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="1" ContentStringFormat=" Reservations number : {0} " Content="{Binding Value}"></Label>
+                        <Label Grid.Column="0" ContentStringFormat="Fan Id : {0}" Content="{Binding Key}"></Label>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+    </Grid>
+</Window>

@@ -51,6 +51,8 @@
             <Button Command="{Binding AddFanCommand}" Content="Add Fan" Margin="10" />
             <Button Command="{Binding EditFanCommand}" Content="Edit Fan" Margin="10" />
             <Button Command="{Binding DeleteFanCommand}" Content="Delete Fan" Margin="10" />
+            <Button Command="{Binding BestFanCommand}" Content="Best Fan" Margin="10" />
+            <Button Command="{Binding WorstFanCommand}" Content="Worst Fan" Margin="10" />
         </StackPanel>
     </Grid>
 </Window>
