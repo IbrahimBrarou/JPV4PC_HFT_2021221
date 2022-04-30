@@ -37,7 +37,6 @@ async function start() {
 };
 async function getdata() {
     await fetch('http://localhost:37793/artists')
-    
         .then(x => x.json())
         .then(y => {
             artists = y;
@@ -50,15 +49,15 @@ function display() {
     artists.forEach(t => {
         document.getElementById('resultarea').innerHTML +=
             "<tr><td>" + t.id + "</td><td>"
-            + t.name + "</td><td>" +
+        + t.name + "</td><td>" + t.category + "</td><td>" + t.price + "$</td><td>"+
         `<button type="button" onclick="remove(${t.id})">Delete</button>` +
-        `<button type="button" onclick="showupdate(${t.id})">Update</button>`
+        `<button type="button" onclick="showupdate(${t.id})">Update Cost</button>`
             + "</td></tr>";
     });
 }
 function showupdate(id) {
-    document.getElementById('artistnameToUpdate').value = artists.find(t => t['id'] == id)['name'];
-    document.getElementById('artistcategoryToUpdate').value = artists.find(t => t['id'] == id)['category'];
+    document.getElementById('artistcostToUpdate').value = artists.find(t => t['id'] == id)['price'];
+    //document.getElementById('artistcategoryToUpdate').value = artists.find(t => t['id'] == id)['category'];
     document.getElementById('updateformdiv').style.display = 'flex';
     artistIdToUpdate = id;
     
@@ -80,13 +79,15 @@ function remove(id) {
 function create() {
     let Artistname = document.getElementById('artistname').value;
     let Artistcategory = document.getElementById('artistcategory').value;
+    let Artistcost = document.getElementById('artistcost').value;
+
     fetch('http://localhost:37793/artists', {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'},
         body: JSON.stringify(
-            { Category: Artistcategory, Name: Artistname })
+            { Category: Artistcategory, Name: Artistname, Price: Artistcost})
     })
         .then(response => response)
         .then(data => {
@@ -98,8 +99,9 @@ function create() {
 }
 function update() {
     document.getElementById('updateformdiv').style.display = 'none';
-    let ArtistnameToUpd = document.getElementById('artistnameToUpdate').value;
-    let ArtistcategoryToUpd = document.getElementById('artistcategoryToUpdate').value;
+    let ArtistcostToUpd = document.getElementById('artistcostToUpdate').value;
+    let Artistcategory = artists.find(t => t['id'] == artistIdToUpdate)['category'];
+    let Artistname = artists.find(t => t['id'] == artistIdToUpdate)['name'];
     fetch('http://localhost:37793/artists', {
         method: 'PUT',
         headers: {
@@ -107,7 +109,7 @@ function update() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(
-            { Category: ArtistcategoryToUpd, Name: ArtistnameToUpd, Id: artistIdToUpdate})
+            { Name: Artistname, Category: Artistcategory, Price: ArtistcostToUpd, Id: artistIdToUpdate })
     })
         .then(response => response)
         .then(data => {

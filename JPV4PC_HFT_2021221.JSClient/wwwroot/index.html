@@ -18,16 +18,18 @@
     <div id="formdiv">
         <label>Artist Name</label>
         <input type="text" id="artistname" />
+        <label>Artist Cost</label>
+        <input type="number" id="artistcost" />
         <label>Artist Category</label>
         <input type="text" id="artistcategory" />
         <button type="button" onclick="create()">Add Artist</button>
     </div>
     <div id="updateformdiv">
-        <label>Artist Name</label>
-        <input type="text" id="artistnameToUpdate" />
-        <label>Artist Category</label>
-        <input type="text" id="artistcategoryToUpdate" />
-        <button type="button" onclick="update()">Update Artist</button>
+        
+        <label>Artist Cost</label>
+        <input type="number" id="artistcostToUpdate" />
+        
+        <button type="button" onclick="update()">Update Artist Cost</button>
     </div>
 
     <table>
@@ -35,6 +37,8 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
                 <th>Actions</th>
             </tr>
         </thead>
