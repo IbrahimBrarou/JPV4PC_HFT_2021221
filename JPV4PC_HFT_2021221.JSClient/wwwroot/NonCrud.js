@@ -29,14 +29,38 @@ async function WorstFan() {
             display(deciding);
         });
 }
-function ArtistEarnings() {
-
+async function ArtistEarnings() {
+    document.getElementById('resultarea').innerHTML = "";
+    document.getElementById('headresult').innerHTML = "";
+    await fetch('http://localhost:37793/Noncrudartist/ArtistsEarnings')
+        .then(x => x.json())
+        .then(y => {
+            artistsearnings = y;
+            deciding = "AE";
+            display(deciding);
+        });
 }
-function Mostpaid() {
-
+async function Mostpaid() {
+    document.getElementById('resultarea').innerHTML = "";
+    document.getElementById('headresult').innerHTML = "";
+    await fetch('http://localhost:37793/Noncrudartist/Mostpaidart')
+        .then(x => x.json())
+        .then(y => {
+            mostpaidartist = y;
+            deciding = "MP";
+            display(deciding);
+        });
 }
-function Lesspaid() {
-
+async function Lesspaid() {
+    document.getElementById('resultarea').innerHTML = "";
+    document.getElementById('headresult').innerHTML = "";
+    await fetch('http://localhost:37793/Noncrudartist/Lesspaidart')
+        .then(x => x.json())
+        .then(y => {
+            lesspaidartist = y;
+            deciding = "LP";
+            display(deciding);
+        });
 }
 function display() {
     if (deciding ==="BF") {
@@ -46,11 +70,32 @@ function display() {
             document.getElementById('resultarea').innerHTML += "<tr><td>" + t.key + "</td><td>" + t.value + "</td></tr>";
         });
     }
-    if (deciding === "WF") {
+    else if (deciding === "WF") {
         document.getElementById('headresult').innerHTML += "<tr><th>Fan Id</th><th>Number of reservations</th></tr> ";
         document.getElementById('resultarea').innerHTML = "";
         worstfan.forEach(t => {
             document.getElementById('resultarea').innerHTML += "<tr><td>" + t.key + "</td><td>" + t.value + "</td></tr>";
+        });
+    }
+    else if (deciding === "AE") {
+        document.getElementById('headresult').innerHTML += "<tr><th>Artist Name</th><th>Overall Earnings</th></tr> ";
+        document.getElementById('resultarea').innerHTML = "";
+        artistsearnings.forEach(t => {
+            document.getElementById('resultarea').innerHTML += "<tr><td>" + t.key + "</td><td>" + t.value + " $</td></tr>";
+        });
+    }
+    else if (deciding === "MP") {
+        document.getElementById('headresult').innerHTML += "<tr><th>Artist Name</th><th>Overall Earnings</th></tr> ";
+        document.getElementById('resultarea').innerHTML = "";
+        mostpaidartist.forEach(t => {
+            document.getElementById('resultarea').innerHTML += "<tr><td>" + t.key + "</td><td>" + t.value + " $</td></tr>";
+        });
+    }
+    else if (deciding === "LP") {
+        document.getElementById('headresult').innerHTML += "<tr><th>Artist Name</th><th>Overall Earnings</th></tr> ";
+        document.getElementById('resultarea').innerHTML = "";
+        lesspaidartist.forEach(t => {
+            document.getElementById('resultarea').innerHTML += "<tr><td>" + t.key + "</td><td>" + t.value + " $</td></tr>";
         });
     }
     

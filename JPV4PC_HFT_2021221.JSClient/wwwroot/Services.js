@@ -100,8 +100,8 @@ function create() {
 function update() {
     document.getElementById('updateformdiv').style.display = 'none';
     let ServicecostToUpd = document.getElementById('servicecostToUpdate').value;
-    let Servicename = reservations.find(t => t['id'] == serviceIdToUpdate)['name'];
-    let Servicerating = reservations.find(t => t['id'] == serviceIdToUpdate)['rating'];
+    let Servicename = services.find(t => t['id'] == serviceIdToUpdate)['name'];
+    let Servicerating = services.find(t => t['id'] == serviceIdToUpdate)['rating'];
     fetch('http://localhost:37793/services', {
         method: 'PUT',
         headers: {
