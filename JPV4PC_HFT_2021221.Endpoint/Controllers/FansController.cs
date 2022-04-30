@@ -1,6 +1,8 @@
-﻿using JPV4PC_HFT_2021221.Logic;
+﻿using JPV4PC_HFT_2021221.Endpoint.services;
+using JPV4PC_HFT_2021221.Logic;
 using JPV4PC_HFT_2021221.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,11 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
     public class FansController : ControllerBase
     {
         IFansLogic FL;
-        public FansController(IFansLogic fL)
+        IHubContext<SignalRHub> hub;
+        public FansController(IFansLogic fL, IHubContext<SignalRHub> hub)
         {
             FL = fL;
+            this.hub = hub;
         }
         // GET: /Fans
         [HttpGet]
@@ -38,6 +42,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         public void Post([FromBody]Fans value)
         {
             FL.AddNewFan(value);
+            this.hub.Clients.All.SendAsync("FanCreated", value);
         }
 
 
@@ -46,6 +51,8 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         public void Put([FromBody] Fans value)
         {
             FL.UpdateCity(value);
+            this.hub.Clients.All.SendAsync("FanUpdated", value);
+
         }
 
 
@@ -53,7 +60,9 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var artistToDelete = this.FL.GetFan(id);
             FL.DeleteFan(id);
+            this.hub.Clients.All.SendAsync("FanDeleted", artistToDelete);
         }
     }
 }

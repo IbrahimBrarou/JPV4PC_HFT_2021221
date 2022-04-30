@@ -2,9 +2,51 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Fans UI</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <div class="topnav">
+        <a href="index.html">Artists</a>
+        <a class="active" href="Fans.html">Fans</a>
+        <a href="Reservations.html">Reservations</a>
+    </div>
 
+    <h1>Fans Catalog</h1>
+
+
+    <div id="formdiv">
+        <label>Fan Name</label>
+        <input type="text" id="fanname" />
+        <label>Fan City</label>
+        <input type="text" id="fancity" />
+        <label>Fan Email</label>
+        <input type="text" id="fanemail" />
+
+        <button type="button" onclick="create()">Add Fan</button>
+    </div>
+    <div id="updateformdiv">
+
+        <label>Fan City</label>
+        <input type="text" id="fancityToUpdate" />
+        <button type="button" onclick="update()">Update Fan</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="Fans.js"></script>
 </body>
 </html>
