@@ -1,6 +1,8 @@
-﻿using JPV4PC_HFT_2021221.Logic;
+﻿using JPV4PC_HFT_2021221.Endpoint.services;
+using JPV4PC_HFT_2021221.Logic;
 using JPV4PC_HFT_2021221.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,12 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
     public class ServicesController :ControllerBase
     {
         IServicesLogic SL;
-        public ServicesController(IServicesLogic sL)
+        IHubContext<SignalRHub> hub;
+
+        public ServicesController(IServicesLogic sL, IHubContext<SignalRHub> hub)
         {
             SL = sL;
+            this.hub = hub;
         }
 
         // GET: /services
@@ -38,6 +43,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         public void Post([FromBody] Services value)
         {
             SL.AddNewService(value);
+            this.hub.Clients.All.SendAsync("ServiceCreated", value);
         }
 
 
@@ -46,6 +52,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         public void Put([FromBody] Services value)
         {
             SL.UpdateServiceCost(value);
+            this.hub.Clients.All.SendAsync("ServiceUpdated", value);
         }
 
 
@@ -53,7 +60,9 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var artistToDelete = this.SL.GetService(id);
             SL.DeleteService(id);
+            this.hub.Clients.All.SendAsync("ServiceDeleted", artistToDelete);
         }
     }
 }

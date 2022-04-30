@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Services UI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="topnav">
+        <a href="index.html">Artists</a>
+        <a href="Fans.html">Fans</a>
+        <a href="Reservations.html">Reservations</a>
+        <a class="active" href="Services.html">Services</a>
+    </div>
+
+    <h1>Services Catalog</h1>
+
+
+    <div id="formdiv">
+        <label>Service Name</label>
+        <input type="text" id="servicename" />
+        <label>Service Rating</label>
+        <input type="range" id="servicerating" min="1" max="10">
+        <!--<input type="number" id="servicerating" />-->
+        <label>Service Cost</label>
+        <input type="number" id="servicecost" />
+
+        <button type="button" onclick="create()">Add Service</button>
+    </div>
+    <div id="updateformdiv">
+
+        <label>Service Cost</label>
+        <input type="number" id="servicecostToUpdate" />
+        <button type="button" onclick="update()">Update Service</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Rating</th>
+                <th>Cost</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="Services.js"></script>
+</body>
+</html>

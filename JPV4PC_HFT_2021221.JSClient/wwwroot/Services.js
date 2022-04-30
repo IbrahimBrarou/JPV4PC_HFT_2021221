@@ -1,8 +1,8 @@
-﻿let artists = [];
+﻿let services = [];
 let connection = null;
 getdata();
 setupSignalR();
-let artistIdToUpdate=-1;
+let serviceIdToUpdate = -1;
 
 function setupSignalR() {
     connection = new signalR.HubConnectionBuilder()
@@ -10,14 +10,14 @@ function setupSignalR() {
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
-    connection.on("ArtistCreated", (user, message) => {
+    connection.on("ServiceCreated", (user, message) => {
         getdata();
     });
 
-    connection.on("ArtistDeleted", (user, message) => {
+    connection.on("ServiceDeleted", (user, message) => {
         getdata();
     });
-    connection.on("ArtistUpdated", (user, message) => {
+    connection.on("ServiceUpdated", (user, message) => {
         getdata();
     });
 
@@ -36,37 +36,35 @@ async function start() {
     }
 };
 async function getdata() {
-    await fetch('http://localhost:37793/artists')
+    await fetch('http://localhost:37793/Services')
         .then(x => x.json())
         .then(y => {
-            artists = y;
+            services = y;
             display();
         });
 }
 function display() {
     document.getElementById('resultarea').innerHTML = "";
-    artists.forEach(t => {
+    services.forEach(t => {
         document.getElementById('resultarea').innerHTML +=
             "<tr><td>" + t.id + "</td><td>"
-        + t.name + "</td><td>" + t.category + "</td><td>" + t.price + " $</td><td>"+
-        `<button type="button" onclick="remove(${t.id})">Delete</button>` +
-        `<button type="button" onclick="showupdate(${t.id})">Update Cost</button>`
+            + t.name + "</td><td>" + t.rating + "</td><td>" + t.price + " $</td><td>" +
+            `<button type="button" onclick="remove(${t.id})">Delete</button>` +
+            `<button type="button" onclick="showupdate(${t.id})">Update Cost</button>`
             + "</td></tr>";
+
     });
-    document.getElementById('artistname').value = "";
-    document.getElementById('artistcategory').value = "";
-    document.getElementById('artistcost').value = "";
+    document.getElementById('servicename').value = "";
+    document.getElementById('servicerating').value = 1;
+    document.getElementById('servicecost').value = "";
 }
 function showupdate(id) {
-    document.getElementById('artistcostToUpdate').value = artists.find(t => t['id'] == id)['price'];
-    //document.getElementById('artistcategoryToUpdate').value = artists.find(t => t['id'] == id)['category'];
+    document.getElementById('servicecostToUpdate').value = services.find(t => t['id'] == id)['price'];
     document.getElementById('updateformdiv').style.display = 'flex';
-    artistIdToUpdate = id;
-    
-
+    serviceIdToUpdate = id;
 }
 function remove(id) {
-    fetch('http://localhost:37793/artists/' + id, {
+    fetch('http://localhost:37793/Services/' + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json', },
         body: null
@@ -79,17 +77,18 @@ function remove(id) {
         .catch((error) => { console.error('Error:', error); });
 }
 function create() {
-    let Artistname = document.getElementById('artistname').value;
-    let Artistcategory = document.getElementById('artistcategory').value;
-    let Artistcost = document.getElementById('artistcost').value;
+    let Servicename = document.getElementById('servicename').value;
+    let Servicerating = document.getElementById('servicerating').value ;
+    let Servicecost = document.getElementById('servicecost').value;
 
-    fetch('http://localhost:37793/artists', {
+    fetch('http://localhost:37793/Services', {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'},
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(
-            { Category: Artistcategory, Name: Artistname, Price: Artistcost})
+            { Name: Servicename, Rating: Servicerating, Price: Servicecost })
     })
         .then(response => response)
         .then(data => {
@@ -97,21 +96,20 @@ function create() {
             getdata();
         })
         .catch((error) => { console.error('Error:', error); });
-
 }
 function update() {
     document.getElementById('updateformdiv').style.display = 'none';
-    let ArtistcostToUpd = document.getElementById('artistcostToUpdate').value;
-    let Artistcategory = artists.find(t => t['id'] == artistIdToUpdate)['category'];
-    let Artistname = artists.find(t => t['id'] == artistIdToUpdate)['name'];
-    fetch('http://localhost:37793/artists', {
+    let ServicecostToUpd = document.getElementById('servicecostToUpdate').value;
+    let Servicename = reservations.find(t => t['id'] == serviceIdToUpdate)['name'];
+    let Servicerating = reservations.find(t => t['id'] == serviceIdToUpdate)['rating'];
+    fetch('http://localhost:37793/services', {
         method: 'PUT',
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(
-            { Name: Artistname, Category: Artistcategory, Price: ArtistcostToUpd, Id: artistIdToUpdate })
+            { Name: Servicename, Rating: Servicerating, Price: ServicecostToUpd, Id: serviceIdToUpdate })
     })
         .then(response => response)
         .then(data => {
@@ -119,5 +117,4 @@ function update() {
             getdata();
         })
         .catch((error) => { console.error('Error:', error); });
-
 }

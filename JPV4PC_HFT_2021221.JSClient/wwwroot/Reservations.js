@@ -55,11 +55,11 @@ function display() {
                 `<button type="button" onclick="showupdate(${t.id})">Update Date</button>`
                 + "</td></tr>";
         }
-        
     });
     document.getElementById('reservationfanid').value = "";
     document.getElementById('reservationartistid').value = "";
     document.getElementById('reservationdate').value = "";
+    
 }
 function showupdate(id) {
     document.getElementById('reservationdateToUpdate').value = reservations.find(t => t['id'] == id)['dateTime'];
@@ -99,6 +99,7 @@ function create() {
             getdata();
         })
         .catch((error) => { console.error('Error:', error); });
+
 
 }
 function update() {
