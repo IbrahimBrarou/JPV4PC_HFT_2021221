@@ -1,6 +1,8 @@
-﻿using JPV4PC_HFT_2021221.Logic;
+﻿using JPV4PC_HFT_2021221.Endpoint.services;
+using JPV4PC_HFT_2021221.Logic;
 using JPV4PC_HFT_2021221.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,11 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
     public class ReservationsController : ControllerBase
     {
         IReservationsLogic RL;
-        public ReservationsController(IReservationsLogic rL)
+        IHubContext<SignalRHub> hub;
+        public ReservationsController(IReservationsLogic rL, IHubContext<SignalRHub> hub)
         {
             RL = rL;
+            this.hub = hub;
         }
 
 
@@ -39,6 +43,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         public void Post([FromBody] Reservations value)
         {
             RL.AddNewReservation(value);
+            this.hub.Clients.All.SendAsync("ReservationCreated", value);
         }
 
 
@@ -47,6 +52,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         public void Put([FromBody] Reservations value)
         {
             RL.UpdateReservationDate(value);
+            this.hub.Clients.All.SendAsync("ReservationUpdated", value);
         }
 
 
@@ -54,7 +60,9 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var artistToDelete = this.RL.GetReservation(id);
             RL.DeleteReservation(id);
+            this.hub.Clients.All.SendAsync("ReservationDeleted", artistToDelete);
         }
     }
 }
