@@ -1,6 +1,8 @@
-﻿using JPV4PC_HFT_2021221.Logic;
+﻿using JPV4PC_HFT_2021221.Endpoint.services;
+using JPV4PC_HFT_2021221.Logic;
 using JPV4PC_HFT_2021221.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,11 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
     public class ArtistsController : ControllerBase
     {
         IArtistsLogic AL;
-        public ArtistsController(IArtistsLogic aL)
+        IHubContext<SignalRHub> hub;
+        public ArtistsController(IArtistsLogic aL, IHubContext<SignalRHub> hub)
         {
             AL = aL;
+            this.hub = hub;
         }
 
         // GET: /artists
@@ -39,6 +43,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         public void Post([FromBody] Artists value)
         {
             AL.AddNewArtist(value);
+            this.hub.Clients.All.SendAsync("ArtistCreated", value);
         }
 
 
@@ -47,6 +52,7 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         public void Put([FromBody] Artists value)
         {
             AL.UpdateArtistCost(value);
+            this.hub.Clients.All.SendAsync("ArtistUpdated", value);
         }
 
 
@@ -54,7 +60,9 @@ namespace JPV4PC_HFT_2021221.Endpoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var artistToDelete = this.AL.GetArtist(id);
             AL.DeleteArtist(id);
+            this.hub.Clients.All.SendAsync("ArtistDeleted", artistToDelete);
         }
 
     }

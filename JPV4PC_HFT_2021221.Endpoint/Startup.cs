@@ -1,4 +1,5 @@
 using JPV4PC_HFT_2021221.Data;
+using JPV4PC_HFT_2021221.Endpoint.services;
 using JPV4PC_HFT_2021221.Logic;
 using JPV4PC_HFT_2021221.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +34,7 @@ namespace JPV4PC_HFT_2021221_Endpoint
             services.AddTransient<IReservationsServicesRepository, ReservationsServicesRepository>();
             services.AddTransient<IServicesRepository, ServicesRepository>();
             services.AddTransient<TalkWithYourFavoriteArtistDbContext, TalkWithYourFavoriteArtistDbContext>();
+            services.AddSignalR();
 
 
         }
@@ -42,12 +44,19 @@ namespace JPV4PC_HFT_2021221_Endpoint
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(x => x
+                .AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:23079"));
+            
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }
